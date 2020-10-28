@@ -144,7 +144,7 @@ public class GregTechMod {
             GameRegistry.registerWorldGenerator(new WorldGenRubberTree(), 10000);
         }
 
-        LootTableHelper.initialize();
+        // LootTableHelper.initialize();
         FilterTypeRegistry.init();
         CoverBehaviors.init();
     }
