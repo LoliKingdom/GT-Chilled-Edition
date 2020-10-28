@@ -28,14 +28,12 @@ public class BlockMetalCasing extends VariantBlock<BlockMetalCasing.MetalCasingT
     public enum MetalCasingType implements IStringSerializable {
 
         BRONZE_BRICKS("bronze_bricks"),
-        PRIMITIVE_BRICKS("primitive_bricks"),
         INVAR_HEATPROOF("invar_heatproof"),
         ALUMINIUM_FROSTPROOF("aluminium_frostproof"),
         STEEL_SOLID("steel_solid"),
         STAINLESS_CLEAN("stainless_clean"),
         TITANIUM_STABLE("titanium_stable"),
-        TUNGSTENSTEEL_ROBUST("tungstensteel_robust"),
-        COKE_BRICKS("coke_bricks");
+        TUNGSTENSTEEL_ROBUST("tungstensteel_robust");
 
         private final String name;
 
