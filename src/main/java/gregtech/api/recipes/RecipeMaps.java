@@ -5,7 +5,6 @@ import gregtech.api.gui.GuiTextures;
 import gregtech.api.gui.widgets.ProgressWidget.MoveType;
 import gregtech.api.recipes.builders.*;
 import gregtech.api.recipes.machines.*;
-import gregtech.api.recipes.recipes.PrimitiveBlastFurnaceRecipe;
 import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenMethod;
 import stanhebben.zenscript.annotations.ZenProperty;
@@ -702,13 +701,5 @@ public class RecipeMaps {
 
     @ZenProperty
     public static final FuelRecipeMap PLASMA_GENERATOR_FUELS = new FuelRecipeMap("plasma_generator");
-
-    @ZenProperty
-    public static final List<PrimitiveBlastFurnaceRecipe> PRIMITIVE_BLAST_FURNACE_RECIPES = new CopyOnWriteArrayList<>();
-
-    @ZenMethod
-    public static List<PrimitiveBlastFurnaceRecipe> getPrimitiveBlastFurnaceRecipes() {
-        return PRIMITIVE_BLAST_FURNACE_RECIPES;
-    }
 
 }

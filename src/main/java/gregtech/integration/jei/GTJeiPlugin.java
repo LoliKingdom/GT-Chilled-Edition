@@ -71,7 +71,6 @@ public class GTJeiPlugin implements IModPlugin {
         for (FuelRecipeMap fuelRecipeMap : FuelRecipeMap.getRecipeMaps()) {
             registry.addRecipeCategories(new FuelRecipeMapCategory(fuelRecipeMap, registry.getJeiHelpers().getGuiHelper()));
         }
-        registry.addRecipeCategories(new PrimitiveBlastRecipeCategory(registry.getJeiHelpers().getGuiHelper()));
         registry.addRecipeCategories(new OreByProductCategory(registry.getJeiHelpers().getGuiHelper()));
     }
 
@@ -134,12 +133,6 @@ public class GTJeiPlugin implements IModPlugin {
         registry.addRecipeCatalyst(MetaTileEntities.LARGE_TUNGSTENSTEEL_BOILER.getStackForm(), semiFluidMapId);
 
         registry.addIngredientInfo(Objects.requireNonNull(Materials.Air.getFluid(1000)), VanillaTypes.FLUID, I18n.format("gregtech.machine.air_collector.jei_description"));
-
-        String primitiveBlastId = GTValues.MODID + ":" + "primitive_blast_furnace";
-        registry.addRecipes(RecipeMaps.PRIMITIVE_BLAST_FURNACE_RECIPES.stream()
-            .map(PrimitiveBlastRecipeWrapper::new)
-            .collect(Collectors.toList()), primitiveBlastId);
-        registry.addRecipeCatalyst(MetaTileEntities.PRIMITIVE_BLAST_FURNACE.getStackForm(), primitiveBlastId);
 
         List<OreByProduct> oreByproductList = new CopyOnWriteArrayList<>();
         for (Material material : Material.MATERIAL_REGISTRY) {

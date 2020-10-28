@@ -5,7 +5,6 @@ import gregtech.api.items.metaitem.MetaItem;
 import gregtech.api.recipes.CountableIngredient;
 import gregtech.api.recipes.ModHandler;
 import gregtech.api.recipes.RecipeMaps;
-import gregtech.api.recipes.builders.PBFRecipeBuilder;
 import gregtech.api.recipes.ingredients.IntCircuitIngredient;
 import gregtech.api.unification.OreDictUnifier;
 import gregtech.api.unification.material.MarkerMaterials;
@@ -67,7 +66,7 @@ public class MachineRecipeLoader {
         // registerCokeOvenRecipes();
         registerFluidRecipes();
         registerMixingCrystallizationRecipes();
-        registerPrimitiveBlastFurnaceRecipes();
+        // registerPrimitiveBlastFurnaceRecipes();
         registerRecyclingRecipes();
         registerOrganicRecyclingRecipes();
     }
@@ -151,12 +150,14 @@ public class MachineRecipeLoader {
             .buildAndRegister();
     }
 
+    /*
     private static void registerPrimitiveBlastFurnaceRecipes() {
         PBFRecipeBuilder.start().input(OrePrefix.ingot, Materials.Iron).output(OreDictUnifier.get(OrePrefix.ingot, Materials.Steel)).duration(1500).fuelAmount(2).buildAndRegister();
         PBFRecipeBuilder.start().input(OrePrefix.block, Materials.Iron).output(OreDictUnifier.get(OrePrefix.block, Materials.Steel)).duration(13500).fuelAmount(18).buildAndRegister();
         PBFRecipeBuilder.start().input(OrePrefix.ingot, Materials.WroughtIron).output(OreDictUnifier.get(OrePrefix.ingot, Materials.Steel)).duration(600).fuelAmount(2).buildAndRegister();
         PBFRecipeBuilder.start().input(OrePrefix.block, Materials.WroughtIron).output(OreDictUnifier.get(OrePrefix.block, Materials.Steel)).duration(5600).fuelAmount(18).buildAndRegister();
     }
+     */
 
     /*
     private static void registerCokeOvenRecipes() {

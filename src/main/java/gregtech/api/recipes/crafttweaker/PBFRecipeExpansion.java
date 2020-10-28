@@ -2,7 +2,6 @@ package gregtech.api.recipes.crafttweaker;
 
 import crafttweaker.annotations.ZenRegister;
 import gregtech.api.recipes.RecipeMaps;
-import gregtech.api.recipes.recipes.PrimitiveBlastFurnaceRecipe;
 import stanhebben.zenscript.annotations.ZenExpansion;
 import stanhebben.zenscript.annotations.ZenMethod;
 
