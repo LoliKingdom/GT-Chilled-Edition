@@ -32,7 +32,6 @@ import gregtech.common.items.MetaItems;
 import gregtech.common.metatileentities.MetaTileEntities;
 import gregtech.common.util.ResourcePackFix;
 import gregtech.common.worldgen.LootTableHelper;
-import gregtech.common.worldgen.WorldGenAbandonedBase;
 import gregtech.common.worldgen.WorldGenRubberTree;
 import gregtech.integration.multipart.GTMultipartFactory;
 import gregtech.integration.theoneprobe.TheOneProbeCompatibility;
@@ -141,7 +140,6 @@ public class GregTechMod {
         }
 
         WorldGenRegistry.INSTANCE.initializeRegistry();
-        GameRegistry.registerWorldGenerator(new WorldGenAbandonedBase(), 20000);
         if (!ConfigHolder.disableRubberTreeGeneration) {
             GameRegistry.registerWorldGenerator(new WorldGenRubberTree(), 10000);
         }
