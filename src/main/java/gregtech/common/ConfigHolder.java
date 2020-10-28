@@ -46,9 +46,6 @@ public class ConfigHolder {
     @Config.Comment("Energy use multiplier for electric items. Default: 100")
     public static int energyUsageMultiplier = 100;
 
-    @Config.Comment("Chance of generating abandoned base in chunk = 1 / THIS_VALUE. 0 disables abandoned base generation. Default: 1000")
-    public static int abandonedBaseRarity = 1000;
-
     @Config.Comment("Recipes for machine hulls use more materials. Default: false")
     @Config.RequiresMcRestart
     public static boolean harderMachineHulls = false;
