@@ -19,7 +19,6 @@ import gregtech.api.unification.ore.OrePrefix;
 import gregtech.api.unification.stack.MaterialStack;
 import gregtech.api.unification.stack.UnificationEntry;
 import gregtech.common.ConfigHolder;
-import gregtech.common.blocks.BlockConcrete.ConcreteVariant;
 import gregtech.common.blocks.BlockMachineCasing.MachineCasingType;
 import gregtech.common.blocks.BlockMetalCasing.MetalCasingType;
 import gregtech.common.blocks.BlockMultiblockCasing.MultiblockCasingType;
@@ -71,7 +70,6 @@ public class MachineRecipeLoader {
         registerMixingCrystallizationRecipes();
         registerPrimitiveBlastFurnaceRecipes();
         registerRecyclingRecipes();
-        registerStoneBricksRecipes();
         registerOrganicRecyclingRecipes();
     }
 
@@ -165,15 +163,6 @@ public class MachineRecipeLoader {
         CokeOvenRecipeBuilder.start().input(OrePrefix.log, Materials.Wood).output(OreDictUnifier.get(OrePrefix.gem, Materials.Charcoal)).fluidOutput(Materials.Creosote.getFluid(250)).duration(900).buildAndRegister();
         CokeOvenRecipeBuilder.start().input(OrePrefix.gem, Materials.Coal).output(OreDictUnifier.get(OrePrefix.gem, Materials.Coke)).fluidOutput(Materials.Creosote.getFluid(500)).duration(900).buildAndRegister();
         CokeOvenRecipeBuilder.start().input(OrePrefix.block, Materials.Coal).output(OreDictUnifier.get(OrePrefix.block, Materials.Coke)).fluidOutput(Materials.Creosote.getFluid(4500)).duration(8100).buildAndRegister();
-    }
-
-    private static void registerStoneBricksRecipes() {
-        //decorative blocks: normal variant -> brick variant
-        registerBrickRecipe(MetaBlocks.CONCRETE, ConcreteVariant.LIGHT_CONCRETE, ConcreteVariant.LIGHT_BRICKS);
-        registerBrickRecipe(MetaBlocks.CONCRETE, ConcreteVariant.DARK_CONCRETE, ConcreteVariant.DARK_BRICKS);
-
-        //decorative blocks: normal chiseling -> different chiseling
-        registerChiselingRecipes(MetaBlocks.CONCRETE);
     }
 
     private static final MaterialStack[] solderingList = {
@@ -365,13 +354,6 @@ public class MachineRecipeLoader {
             .fluidInputs(Materials.Water.getFluid(500))
             .fluidOutputs(Materials.Concrete.getFluid(576))
             .duration(20).EUt(16)
-            .buildAndRegister();
-
-        RecipeMaps.MIXER_RECIPES.recipeBuilder()
-            .inputs(MetaBlocks.CONCRETE.getItemVariant(ConcreteVariant.LIGHT_CONCRETE, ChiselingVariant.NORMAL))
-            .fluidInputs(Materials.Water.getFluid(144))
-            .outputs(MetaBlocks.CONCRETE.getItemVariant(ConcreteVariant.DARK_CONCRETE, ChiselingVariant.NORMAL))
-            .duration(12).EUt(4)
             .buildAndRegister();
 
         RecipeMaps.MIXER_RECIPES.recipeBuilder()

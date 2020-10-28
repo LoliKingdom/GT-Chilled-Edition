@@ -91,8 +91,6 @@ public class MetaBlocks {
     public static BlockWireCoil WIRE_COIL;
     public static BlockWarningSign WARNING_SIGN;
 
-    public static BlockConcrete CONCRETE;
-
     public static BlockFoam FOAM;
     public static BlockFoam REINFORCED_FOAM;
     public static BlockPetrifiedFoam PETRIFIED_FOAM;
@@ -134,9 +132,6 @@ public class MetaBlocks {
         WIRE_COIL.setRegistryName("wire_coil");
         WARNING_SIGN = new BlockWarningSign();
         WARNING_SIGN.setRegistryName("warning_sign");
-
-        CONCRETE = new BlockConcrete();
-        CONCRETE.setRegistryName("concrete");
 
         FOAM = new BlockFoam(false);
         FOAM.setRegistryName("foam");
@@ -289,7 +284,6 @@ public class MetaBlocks {
         registerItemModel(MUTLIBLOCK_CASING);
         registerItemModel(WIRE_COIL);
         registerItemModel(WARNING_SIGN);
-        registerItemModel(CONCRETE);
         registerItemModelWithOverride(LOG, ImmutableMap.of(BlockGregLog.LOG_AXIS, EnumAxis.Y));
         registerItemModel(LEAVES);
         registerItemModel(SAPLING);
