@@ -1,11 +1,6 @@
 package gregtech.api.unification.ore;
 
-import gregtech.api.GTValues;
 import gregtech.api.unification.material.Materials;
-import gregtech.common.blocks.BlockMineral;
-import gregtech.common.blocks.BlockMineral.MineralVariant;
-import gregtech.common.blocks.MetaBlocks;
-import gregtech.common.blocks.StoneBlock.ChiselingVariant;
 import net.minecraft.block.*;
 import net.minecraft.block.BlockStone.EnumType;
 import net.minecraft.init.Blocks;
@@ -56,11 +51,4 @@ public class StoneTypes {
         () -> Blocks.RED_SANDSTONE.getDefaultState().withProperty(BlockRedSandstone.TYPE, BlockRedSandstone.EnumType.DEFAULT),
         state -> state.getBlock() instanceof BlockRedSandstone && state.getValue(BlockRedSandstone.TYPE) == BlockRedSandstone.EnumType.DEFAULT);
 
-    public static StoneType MARBLE = new StoneType(12, "marble", new ResourceLocation(GTValues.MODID, "blocks/stones/marble/marble_stone"), SoundType.STONE, OrePrefix.oreMarble, Materials.Marble, "pickaxe", 0,
-        () -> MetaBlocks.MINERAL.withVariant(MineralVariant.MARBLE, ChiselingVariant.NORMAL),
-        state -> state.getBlock() instanceof BlockMineral && ((BlockMineral) state.getBlock()).getVariant(state) == MineralVariant.MARBLE);
-
-    public static StoneType BASALT = new StoneType(13, "basalt", new ResourceLocation(GTValues.MODID, "blocks/stones/basalt/basalt_stone"), SoundType.STONE, OrePrefix.oreBasalt, Materials.Basalt, "pickaxe", 0,
-        () -> MetaBlocks.MINERAL.withVariant(MineralVariant.BASALT, ChiselingVariant.NORMAL),
-        state -> state.getBlock() instanceof BlockMineral && ((BlockMineral) state.getBlock()).getVariant(state) == MineralVariant.BASALT);
 }

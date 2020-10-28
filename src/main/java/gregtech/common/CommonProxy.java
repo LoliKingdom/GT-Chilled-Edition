@@ -68,7 +68,6 @@ public class CommonProxy {
         registry.register(MUTLIBLOCK_CASING);
         registry.register(WIRE_COIL);
         registry.register(WARNING_SIGN);
-        registry.register(MINERAL);
         registry.register(CONCRETE);
         registry.register(LOG);
         registry.register(LEAVES);
@@ -113,7 +112,6 @@ public class CommonProxy {
         registry.register(createItemBlock(MUTLIBLOCK_CASING, VariantItemBlock::new));
         registry.register(createItemBlock(WIRE_COIL, VariantItemBlock::new));
         registry.register(createItemBlock(WARNING_SIGN, VariantItemBlock::new));
-        registry.register(createItemBlock(MINERAL, StoneItemBlock::new));
         registry.register(createItemBlock(CONCRETE, StoneItemBlock::new));
         registry.register(createMultiTexItemBlock(LOG, state -> state.getValue(BlockGregLog.VARIANT).getName()));
         registry.register(createMultiTexItemBlock(LEAVES, state -> state.getValue(BlockGregLeaves.VARIANT).getName()));
