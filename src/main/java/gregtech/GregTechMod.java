@@ -35,7 +35,7 @@ import gregtech.common.worldgen.LootTableHelper;
 import gregtech.common.worldgen.WorldGenRubberTree;
 import gregtech.integration.multipart.GTMultipartFactory;
 import gregtech.integration.theoneprobe.TheOneProbeCompatibility;
-import gregtech.loaders.dungeon.DungeonLootLoader;
+
 import net.minecraftforge.classloading.FMLForgePlugin;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fml.common.*;
@@ -147,7 +147,6 @@ public class GregTechMod {
         LootTableHelper.initialize();
         FilterTypeRegistry.init();
         CoverBehaviors.init();
-        DungeonLootLoader.init();
     }
 
     @Method(modid = GTValues.MODID_FMP)

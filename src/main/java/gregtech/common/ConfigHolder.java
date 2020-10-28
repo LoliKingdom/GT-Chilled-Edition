@@ -9,9 +9,6 @@ public class ConfigHolder {
     @Config.Comment("Whether to enable more verbose logging. Default: false")
     public static boolean debug = false;
 
-    @Config.Comment("Whether to increase number of rolls for dungeon chests. Increases dungeon loot drastically. Default: true")
-    public static boolean increaseDungeonLoot = true;
-
     @Config.Comment("Whether to hide facades of all blocks in JEI and creative search menu. Default: true")
     @Config.RequiresMcRestart
     public static boolean hideFacadesInJEI = true;
