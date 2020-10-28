@@ -143,7 +143,6 @@ public class MetaTileEntities {
     public static MetaTileEntityChest STAINLESS_STEEL_CHEST;
     public static MetaTileEntityChest TITANIUM_CHEST;
     public static MetaTileEntityChest TUNGSTENSTEEL_CHEST;
-    public static MetaTileEntityLockedSafe LOCKED_SAFE;
     public static MetaTileEntityArmorTable ARMOR_TABLE;
 
     public static MetaTileEntityTank WOODEN_TANK;
@@ -496,7 +495,8 @@ public class MetaTileEntities {
         FISHER[2] = GregTechAPI.registerMetaTileEntity(822, new MetaTileEntityFisher(gregtechId("fisher.hv"), 3));
         FISHER[3] = GregTechAPI.registerMetaTileEntity(823, new MetaTileEntityFisher(gregtechId("fisher.ev"), 4));
 
-        LOCKED_SAFE = GregTechAPI.registerMetaTileEntity(824, new MetaTileEntityLockedSafe(gregtechId("locked_safe")));
+        // 824 - LOCKED SAFE - REMOVED
+
         WORKBENCH = GregTechAPI.registerMetaTileEntity(825, new MetaTileEntityWorkbench(gregtechId("workbench")));
         ARMOR_TABLE = GregTechAPI.registerMetaTileEntity(826, new MetaTileEntityArmorTable(gregtechId("armor_table")));
 
