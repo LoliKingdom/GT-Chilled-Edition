@@ -5,7 +5,6 @@ import gregtech.api.items.metaitem.MetaItem;
 import gregtech.api.recipes.CountableIngredient;
 import gregtech.api.recipes.ModHandler;
 import gregtech.api.recipes.RecipeMaps;
-import gregtech.api.recipes.builders.CokeOvenRecipeBuilder;
 import gregtech.api.recipes.builders.PBFRecipeBuilder;
 import gregtech.api.recipes.ingredients.IntCircuitIngredient;
 import gregtech.api.unification.OreDictUnifier;
@@ -65,7 +64,7 @@ public class MachineRecipeLoader {
         registerAssemblerRecipes();
         registerAlloyRecipes();
         registerBendingCompressingRecipes();
-        registerCokeOvenRecipes();
+        // registerCokeOvenRecipes();
         registerFluidRecipes();
         registerMixingCrystallizationRecipes();
         registerPrimitiveBlastFurnaceRecipes();
@@ -159,11 +158,13 @@ public class MachineRecipeLoader {
         PBFRecipeBuilder.start().input(OrePrefix.block, Materials.WroughtIron).output(OreDictUnifier.get(OrePrefix.block, Materials.Steel)).duration(5600).fuelAmount(18).buildAndRegister();
     }
 
+    /*
     private static void registerCokeOvenRecipes() {
         CokeOvenRecipeBuilder.start().input(OrePrefix.log, Materials.Wood).output(OreDictUnifier.get(OrePrefix.gem, Materials.Charcoal)).fluidOutput(Materials.Creosote.getFluid(250)).duration(900).buildAndRegister();
         CokeOvenRecipeBuilder.start().input(OrePrefix.gem, Materials.Coal).output(OreDictUnifier.get(OrePrefix.gem, Materials.Coke)).fluidOutput(Materials.Creosote.getFluid(500)).duration(900).buildAndRegister();
         CokeOvenRecipeBuilder.start().input(OrePrefix.block, Materials.Coal).output(OreDictUnifier.get(OrePrefix.block, Materials.Coke)).fluidOutput(Materials.Creosote.getFluid(4500)).duration(8100).buildAndRegister();
     }
+     */
 
     private static final MaterialStack[] solderingList = {
         new MaterialStack(Materials.Tin, 2L),

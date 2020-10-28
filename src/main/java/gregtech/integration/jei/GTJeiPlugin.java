@@ -72,7 +72,6 @@ public class GTJeiPlugin implements IModPlugin {
             registry.addRecipeCategories(new FuelRecipeMapCategory(fuelRecipeMap, registry.getJeiHelpers().getGuiHelper()));
         }
         registry.addRecipeCategories(new PrimitiveBlastRecipeCategory(registry.getJeiHelpers().getGuiHelper()));
-        registry.addRecipeCategories(new CokeOvenRecipeCategory(registry.getJeiHelpers().getGuiHelper()));
         registry.addRecipeCategories(new OreByProductCategory(registry.getJeiHelpers().getGuiHelper()));
     }
 
@@ -141,12 +140,6 @@ public class GTJeiPlugin implements IModPlugin {
             .map(PrimitiveBlastRecipeWrapper::new)
             .collect(Collectors.toList()), primitiveBlastId);
         registry.addRecipeCatalyst(MetaTileEntities.PRIMITIVE_BLAST_FURNACE.getStackForm(), primitiveBlastId);
-
-        String cokeOvenId = GTValues.MODID + ":" + "coke_oven";
-        registry.addRecipes(RecipeMaps.COKE_OVEN_RECIPES.stream()
-            .map(CokeOvenRecipeWrapper::new)
-            .collect(Collectors.toList()), cokeOvenId);
-        registry.addRecipeCatalyst(MetaTileEntities.COKE_OVEN.getStackForm(), cokeOvenId);
 
         List<OreByProduct> oreByproductList = new CopyOnWriteArrayList<>();
         for (Material material : Material.MATERIAL_REGISTRY) {
