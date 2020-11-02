@@ -25,7 +25,6 @@ import gregtech.common.blocks.BlockWireCoil.CoilType;
 import gregtech.common.blocks.MetaBlocks;
 import gregtech.common.blocks.StoneBlock;
 import gregtech.common.blocks.StoneBlock.ChiselingVariant;
-import gregtech.common.blocks.wood.BlockGregLog.LogVariant;
 import gregtech.common.items.MetaItems;
 import gregtech.common.metatileentities.MetaTileEntities;
 import net.minecraft.init.Blocks;
@@ -735,21 +734,22 @@ public class MachineRecipeLoader {
                 Materials.Oxygen.getFluid(1000))
             .buildAndRegister();
 
+        // TODO Re-visit
         RecipeMaps.EXTRACTOR_RECIPES.recipeBuilder()
-            .inputs(RUBBER_DROP.getStackForm())
+            .input("dropRubber", 1)
             .outputs(OreDictUnifier.get(OrePrefix.dust, Materials.RawRubber, 4))
             .duration(200).EUt(5)
             .buildAndRegister();
 
         RecipeMaps.CENTRIFUGE_RECIPES.recipeBuilder().duration(400).EUt(5)
-            .inputs(MetaItems.RUBBER_DROP.getStackForm())
+            .input("dropRubber", 1)
             .outputs(OreDictUnifier.get(OrePrefix.dust, Materials.RawRubber, 3))
             .chancedOutput(MetaItems.PLANT_BALL.getStackForm(), 1000, 850)
             .fluidOutputs(Materials.Glue.getFluid(100))
             .buildAndRegister();
 
         RecipeMaps.CENTRIFUGE_RECIPES.recipeBuilder().duration(200).EUt(20)
-            .inputs(MetaBlocks.LOG.getItem(LogVariant.RUBBER_WOOD))
+            .input("logRubber", 1)
             .chancedOutput(MetaItems.RUBBER_DROP.getStackForm(), 5000, 1200)
             .chancedOutput(MetaItems.PLANT_BALL.getStackForm(), 3750, 900)
             .chancedOutput(OreDictUnifier.get(OrePrefix.dust, Materials.Carbon), 2500, 600)

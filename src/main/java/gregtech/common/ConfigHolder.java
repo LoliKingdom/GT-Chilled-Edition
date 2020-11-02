@@ -33,10 +33,6 @@ public class ConfigHolder {
     @Config.Comment("Whether to disable vanilla ores generation in world. Default: false")
     public static boolean disableVanillaOres = false;
 
-    @Config.Comment("Whether to disable rubber tree world generation. Default: false")
-    @Config.RequiresMcRestart
-    public static boolean disableRubberTreeGeneration = false;
-
     @Config.Comment("Whether machines should explode when overloaded with power. Default: true")
     public static boolean doExplosions = true;
 

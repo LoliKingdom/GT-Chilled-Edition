@@ -31,8 +31,6 @@ import gregtech.common.covers.filter.FilterTypeRegistry;
 import gregtech.common.items.MetaItems;
 import gregtech.common.metatileentities.MetaTileEntities;
 import gregtech.common.util.ResourcePackFix;
-import gregtech.common.worldgen.LootTableHelper;
-import gregtech.common.worldgen.WorldGenRubberTree;
 import gregtech.integration.multipart.GTMultipartFactory;
 import gregtech.integration.theoneprobe.TheOneProbeCompatibility;
 
@@ -41,7 +39,6 @@ import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fml.common.*;
 import net.minecraftforge.fml.common.Optional.Method;
 import net.minecraftforge.fml.common.event.*;
-import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
@@ -140,9 +137,6 @@ public class GregTechMod {
         }
 
         WorldGenRegistry.INSTANCE.initializeRegistry();
-        if (!ConfigHolder.disableRubberTreeGeneration) {
-            GameRegistry.registerWorldGenerator(new WorldGenRubberTree(), 10000);
-        }
 
         // LootTableHelper.initialize();
         FilterTypeRegistry.init();

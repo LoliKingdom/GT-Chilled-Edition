@@ -1,6 +1,5 @@
 package gregtech.common.blocks;
 
-import com.google.common.collect.ImmutableMap;
 import gregtech.api.GTValues;
 import gregtech.api.GregTechAPI;
 import gregtech.api.block.machines.BlockMachine;
@@ -24,9 +23,6 @@ import gregtech.common.blocks.surfacerock.BlockSurfaceRockDeprecated;
 import gregtech.common.blocks.surfacerock.BlockSurfaceRockNew;
 import gregtech.common.blocks.surfacerock.TileEntitySurfaceRock;
 import gregtech.common.blocks.tileentity.TileEntityCrusherBlade;
-import gregtech.common.blocks.wood.BlockGregLeaves;
-import gregtech.common.blocks.wood.BlockGregLog;
-import gregtech.common.blocks.wood.BlockGregSapling;
 import gregtech.common.pipelike.cable.BlockCable;
 import gregtech.common.pipelike.cable.Insulation;
 import gregtech.common.pipelike.cable.WireProperties;
@@ -42,7 +38,6 @@ import gregtech.common.render.FluidPipeRenderer;
 import gregtech.common.render.tesr.TileEntityCrusherBladeRenderer;
 import gregtech.common.render.tesr.TileEntityRendererBase.TileEntityRenderBaseItem;
 import net.minecraft.block.Block;
-import net.minecraft.block.BlockLog.EnumAxis;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
@@ -50,8 +45,6 @@ import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.client.renderer.block.statemap.DefaultStateMapper;
 import net.minecraft.client.renderer.block.statemap.IStateMapper;
 import net.minecraft.client.renderer.block.statemap.StateMapperBase;
-import net.minecraft.init.Blocks;
-import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
@@ -96,10 +89,6 @@ public class MetaBlocks {
     public static BlockPetrifiedFoam PETRIFIED_FOAM;
     public static BlockPetrifiedFoam REINFORCED_PETRIFIED_FOAM;
 
-    public static BlockGregLog LOG;
-    public static BlockGregLeaves LEAVES;
-    public static BlockGregSapling SAPLING;
-
     public static BlockCrusherBlade CRUSHER_BLADE;
 
     public static Map<DustMaterial, BlockCompressed> COMPRESSED = new HashMap<>();
@@ -142,13 +131,6 @@ public class MetaBlocks {
         REINFORCED_PETRIFIED_FOAM = new BlockPetrifiedFoam(true);
         REINFORCED_PETRIFIED_FOAM.setRegistryName("reinforced_petrified_foam");
 
-        LOG = new BlockGregLog();
-        LOG.setRegistryName("log");
-        LEAVES = new BlockGregLeaves();
-        LEAVES.setRegistryName("leaves");
-        SAPLING = new BlockGregSapling();
-        SAPLING.setRegistryName("sapling");
-
         CRUSHER_BLADE = new BlockCrusherBlade();
         CRUSHER_BLADE.setRegistryName("crusher_blade");
 
@@ -186,10 +168,6 @@ public class MetaBlocks {
         CABLE.addCableMaterial(MarkerMaterials.Tier.Superconductor, new WireProperties(Integer.MAX_VALUE, 4, 0));
         registerTileEntity();
 
-        //not sure if that's a good place for that, but i don't want to make a dedicated method for that
-        //could possibly override block methods, but since these props don't depend on state why not just use nice and simple vanilla method
-        Blocks.FIRE.setFireInfo(LOG, 5, 5);
-        Blocks.FIRE.setFireInfo(LEAVES, 30, 60);
     }
 
     private static int createGeneratedBlock(Predicate<Material> materialPredicate, BiConsumer<Material[], Integer> blockGenerator) {
@@ -284,9 +262,6 @@ public class MetaBlocks {
         registerItemModel(MUTLIBLOCK_CASING);
         registerItemModel(WIRE_COIL);
         registerItemModel(WARNING_SIGN);
-        registerItemModelWithOverride(LOG, ImmutableMap.of(BlockGregLog.LOG_AXIS, EnumAxis.Y));
-        registerItemModel(LEAVES);
-        registerItemModel(SAPLING);
 
         COMPRESSED.values().stream().distinct().forEach(MetaBlocks::registerItemModel);
         FRAMES.values().forEach(it -> registerItemModelWithFilteredProperties(it));
@@ -403,11 +378,6 @@ public class MetaBlocks {
     }
 
     public static void registerOreDict() {
-        OreDictUnifier.registerOre(new ItemStack(LOG, 1, GTValues.W), OrePrefix.log, Materials.Wood);
-        OreDictUnifier.registerOre(new ItemStack(LEAVES, 1, GTValues.W), "treeLeaves");
-        OreDictUnifier.registerOre(new ItemStack(SAPLING, 1, GTValues.W), "treeSapling");
-        GameRegistry.addSmelting(LOG, new ItemStack(Items.COAL, 1, 1), 0.15F);
-
         for (Entry<DustMaterial, BlockCompressed> entry : COMPRESSED.entrySet()) {
             DustMaterial material = entry.getKey();
             BlockCompressed block = entry.getValue();

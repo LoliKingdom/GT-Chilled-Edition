@@ -9,9 +9,6 @@ import gregtech.api.unification.material.type.Material;
 import gregtech.api.unification.ore.OrePrefix;
 import gregtech.api.util.GTLog;
 import gregtech.common.blocks.*;
-import gregtech.common.blocks.wood.BlockGregLeaves;
-import gregtech.common.blocks.wood.BlockGregLog;
-import gregtech.common.blocks.wood.BlockGregSapling;
 import gregtech.common.items.MetaItems;
 import gregtech.common.items.potions.PotionFluids;
 import gregtech.common.pipelike.cable.ItemBlockCable;
@@ -68,9 +65,6 @@ public class CommonProxy {
         registry.register(MUTLIBLOCK_CASING);
         registry.register(WIRE_COIL);
         registry.register(WARNING_SIGN);
-        registry.register(LOG);
-        registry.register(LEAVES);
-        registry.register(SAPLING);
         registry.register(CRUSHER_BLADE);
         registry.register(SURFACE_ROCK_NEW);
 
@@ -111,9 +105,6 @@ public class CommonProxy {
         registry.register(createItemBlock(MUTLIBLOCK_CASING, VariantItemBlock::new));
         registry.register(createItemBlock(WIRE_COIL, VariantItemBlock::new));
         registry.register(createItemBlock(WARNING_SIGN, VariantItemBlock::new));
-        registry.register(createMultiTexItemBlock(LOG, state -> state.getValue(BlockGregLog.VARIANT).getName()));
-        registry.register(createMultiTexItemBlock(LEAVES, state -> state.getValue(BlockGregLeaves.VARIANT).getName()));
-        registry.register(createMultiTexItemBlock(SAPLING, state -> state.getValue(BlockGregSapling.VARIANT).getName()));
         registry.register(createItemBlock(CRUSHER_BLADE, ItemBlock::new));
 
         COMPRESSED.values()
@@ -184,13 +175,6 @@ public class CommonProxy {
     @SubscribeEvent
     public static void modifyFuelBurnTime(FurnaceFuelBurnTimeEvent event) {
         ItemStack stack = event.getItemStack();
-        Block block = Block.getBlockFromItem(stack.getItem());
-        //handle sapling and log burn rates
-        if (block == MetaBlocks.LOG) {
-            event.setBurnTime(300);
-        } else if (block == MetaBlocks.SAPLING) {
-            event.setBurnTime(100);
-        }
         //handle material blocks burn value
         if (stack.getItem() instanceof CompressedItemBlock) {
             CompressedItemBlock itemBlock = (CompressedItemBlock) stack.getItem();
