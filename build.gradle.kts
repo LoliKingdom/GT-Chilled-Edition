@@ -77,6 +77,9 @@ repositories {
         name = "ic2, forestry"
         setUrl("http://maven.ic2.player.to/")
     }
+    maven {
+        setUrl("https://www.cursemaven.com")
+    }
     maven { //JEI
         name = "Progwml6 maven"
         setUrl("http://dvs1.progwml6.com/files/maven/")
@@ -112,6 +115,9 @@ repositories {
 }
 
 dependencies {
+
+    "compile"("curse.maven:ic2-classic:3093608")
+
     "deobfCompile"("curse.maven:forestry:2918418") {
         isTransitive = false
     }
