@@ -118,7 +118,7 @@ dependencies {
 
     "compile"("curse.maven:ic2-classic:3093608")
 
-    "deobfCompile"("curse.maven:forestry:2918418") {
+    "deobfCompile"("curse.maven:forestry-59751:2918418") {
         isTransitive = false
     }
     "deobfCompile"("codechicken:ChickenASM:$shortVersion-$chickenasmVersion")
