@@ -11,24 +11,31 @@ import net.minecraftforge.fml.common.eventhandler.Event.Result;
 import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
-import java.util.Arrays;
-import java.util.List;
+import java.util.EnumSet;
 import java.util.Random;
 
 import static net.minecraftforge.event.terraingen.OreGenEvent.GenerateMinable.EventType.*;
 
 public class WorldGeneratorImpl implements IWorldGenerator {
 
-    private static final List<EventType> ORE_EVENT_TYPES = Arrays.asList(
-        COAL, DIAMOND, GOLD, IRON, LAPIS, REDSTONE, QUARTZ, EMERALD);
+    private static final EnumSet<EventType> ORE_EVENT_TYPES = EnumSet.noneOf(OreGenEvent.GenerateMinable.EventType.class);
     public static final int GRID_SIZE_X = 3;
     public static final int GRID_SIZE_Z = 3;
 
+    static {
+        ORE_EVENT_TYPES.add(COAL);
+        ORE_EVENT_TYPES.add(DIAMOND);
+        ORE_EVENT_TYPES.add(GOLD);
+        ORE_EVENT_TYPES.add(IRON);
+        ORE_EVENT_TYPES.add(LAPIS);
+        ORE_EVENT_TYPES.add(REDSTONE);
+        ORE_EVENT_TYPES.add(QUARTZ);
+        ORE_EVENT_TYPES.add(EMERALD);
+    }
+
     @SubscribeEvent(priority = EventPriority.HIGH)
     public void onOreGenerate(OreGenEvent.GenerateMinable event) {
-        EventType eventType = event.getType();
-        if (ConfigHolder.disableVanillaOres &&
-            ORE_EVENT_TYPES.contains(eventType)) {
+        if (ConfigHolder.disableVanillaOres && ORE_EVENT_TYPES.contains(event.getType())) {
             event.setResult(Result.DENY);
         }
     }
