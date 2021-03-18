@@ -101,10 +101,6 @@ repositories {
         setUrl("http://maven.covers1624.net")
     }
     maven {
-        name = "tehnut maven"
-        setUrl("http://tehnut.info/maven/")
-    }
-    maven {
         name = "CraftTweaker Maven"
         setUrl("https://maven.blamejared.com/")
     }
@@ -115,8 +111,6 @@ repositories {
 }
 
 dependencies {
-
-    "compile"("curse.maven:ic2-classic:3093608")
 
     "deobfCompile"("curse.maven:forestry-59751:2918418") {
         isTransitive = false

@@ -4,8 +4,6 @@ import crafttweaker.annotations.ZenRegister;
 import crafttweaker.api.item.IItemStack;
 import crafttweaker.api.liquid.ILiquidStack;
 import crafttweaker.api.minecraft.CraftTweakerMC;
-import gnu.trove.map.TByteObjectMap;
-import gnu.trove.map.hash.TByteObjectHashMap;
 import gregtech.api.GTValues;
 import gregtech.api.capability.IMultipleTankHandler;
 import gregtech.api.capability.impl.FluidTankList;
@@ -25,6 +23,8 @@ import gregtech.api.util.EnumValidationResult;
 import gregtech.api.util.GTLog;
 import gregtech.api.util.GTUtility;
 import gregtech.api.util.ValidationResult;
+import it.unimi.dsi.fastutil.bytes.Byte2ObjectMap;
+import it.unimi.dsi.fastutil.bytes.Byte2ObjectOpenHashMap;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.Fluid;
@@ -56,7 +56,7 @@ public class RecipeMap<R extends RecipeBuilder<R>> {
     private final int minOutputs, maxOutputs;
     private final int minFluidInputs, maxFluidInputs;
     private final int minFluidOutputs, maxFluidOutputs;
-    private final TByteObjectMap<TextureArea> slotOverlays;
+    private final Byte2ObjectMap<TextureArea> slotOverlays;
     protected TextureArea progressBarTexture;
     protected MoveType moveType;
 
@@ -68,7 +68,7 @@ public class RecipeMap<R extends RecipeBuilder<R>> {
                      int minFluidInputs, int maxFluidInputs, int minFluidOutputs, int maxFluidOutputs,
                      R defaultRecipe) {
         this.unlocalizedName = unlocalizedName;
-        this.slotOverlays = new TByteObjectHashMap<>();
+        this.slotOverlays = new Byte2ObjectOpenHashMap<>();
         this.progressBarTexture = GuiTextures.PROGRESS_BAR_ARROW;
         this.moveType = MoveType.HORIZONTAL;
 

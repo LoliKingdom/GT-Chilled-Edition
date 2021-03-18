@@ -4,7 +4,6 @@ import codechicken.lib.util.ItemNBTUtils;
 import gregtech.api.recipes.CountableIngredient;
 import gregtech.api.recipes.Recipe;
 import gregtech.api.recipes.Recipe.ChanceEntry;
-import gregtech.api.recipes.RecipeMap;
 import gregtech.api.unification.OreDictUnifier;
 import gregtech.integration.jei.utils.JEIHelpers;
 import mezz.jei.api.ingredients.IIngredients;
@@ -25,11 +24,9 @@ import java.util.stream.Collectors;
 public class GTRecipeWrapper implements IRecipeWrapper {
 
     private static final int lineHeight = 10;
-    private final RecipeMap<?> recipeMap;
     private final Recipe recipe;
 
-    public GTRecipeWrapper(RecipeMap<?> recipeMap, Recipe recipe) {
-        this.recipeMap = recipeMap;
+    public GTRecipeWrapper(Recipe recipe) {
         this.recipe = recipe;
     }
 

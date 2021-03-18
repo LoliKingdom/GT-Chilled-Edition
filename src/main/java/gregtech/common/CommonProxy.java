@@ -66,10 +66,8 @@ public class CommonProxy {
         registry.register(WIRE_COIL);
         registry.register(WARNING_SIGN);
         registry.register(CRUSHER_BLADE);
-        registry.register(SURFACE_ROCK_NEW);
 
         COMPRESSED.values().stream().distinct().forEach(registry::register);
-        SURFACE_ROCKS.values().stream().distinct().forEach(registry::register);
         FRAMES.values().stream().distinct().forEach(registry::register);
         ORES.forEach(registry::register);
     }
