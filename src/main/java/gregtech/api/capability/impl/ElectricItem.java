@@ -14,11 +14,10 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.function.BiConsumer;
 
 public class ElectricItem implements IElectricItem, ICapabilityProvider {
 
-    protected ItemStack itemStack;
+    protected final ItemStack itemStack;
 
     protected final long maxCharge;
     protected final int tier;
@@ -26,7 +25,7 @@ public class ElectricItem implements IElectricItem, ICapabilityProvider {
     protected final boolean chargeable;
     protected final boolean canProvideEnergyExternally;
 
-    protected List<BiConsumer<ItemStack, Long>> listeners = new ArrayList<>();
+    protected final List<ChargeListener> listeners = new ArrayList<>();
 
     public ElectricItem(ItemStack itemStack, long maxCharge, int tier, boolean chargeable, boolean canProvideEnergyExternally) {
         this.itemStack = itemStack;
@@ -37,7 +36,7 @@ public class ElectricItem implements IElectricItem, ICapabilityProvider {
     }
 
     @Override
-    public void addChargeListener(BiConsumer<ItemStack, Long> chargeListener) {
+    public void addChargeListener(ChargeListener chargeListener) {
         listeners.add(chargeListener);
     }
 

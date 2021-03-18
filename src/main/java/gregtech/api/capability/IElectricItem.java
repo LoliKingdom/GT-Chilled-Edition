@@ -19,7 +19,7 @@ public interface IElectricItem {
      *
      * @param chargeListener listener will be called when charge changes
      */
-    void addChargeListener(BiConsumer<ItemStack, Long> chargeListener);
+    void addChargeListener(ChargeListener chargeListener);
 
     /**
      * Charge an item with a specified amount of energy.
@@ -88,5 +88,11 @@ public interface IElectricItem {
      * @return The tier of the item.
      */
     int getTier();
+
+    interface ChargeListener {
+
+        void accept(ItemStack stack, long value);
+
+    }
 
 }

@@ -36,8 +36,8 @@ public class CountableIngredient {
         return new CountableIngredient(new OreIngredient(new UnificationEntry(prefix, material).toString()), count);
     }
 
-    private Ingredient ingredient;
-    private int count;
+    private final Ingredient ingredient;
+    private final int count;
 
     public CountableIngredient(Ingredient ingredient, int count) {
         this.ingredient = ingredient;
