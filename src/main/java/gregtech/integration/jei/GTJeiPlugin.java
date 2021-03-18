@@ -45,6 +45,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 
 import javax.annotation.Nonnull;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
@@ -160,7 +161,7 @@ public class GTJeiPlugin implements IModPlugin {
 
         //Ore Veins
         List<OreDepositDefinition> oreVeins = WorldGenRegistry.getOreDeposits();
-        List<GTOreInfo> oreInfoList = new CopyOnWriteArrayList<>();
+        List<GTOreInfo> oreInfoList = new ArrayList<>();
         for(OreDepositDefinition vein : oreVeins) {
             oreInfoList.add(new GTOreInfo(vein));
         }
