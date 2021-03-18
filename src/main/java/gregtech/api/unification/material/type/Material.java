@@ -48,7 +48,7 @@ public abstract class Material implements Comparable<Material> {
 
     public static final class MatFlags {
 
-        private static Map<String, Entry<Long, Class<? extends Material>>> materialFlagRegistry = new TreeMap<>(String.CASE_INSENSITIVE_ORDER);
+        private static final Map<String, Entry<Long, Class<? extends Material>>> materialFlagRegistry = new TreeMap<>(String.CASE_INSENSITIVE_ORDER);
 
         public static void registerMaterialFlag(String name, long value, Class<? extends Material> classFilter) {
             if (materialFlagRegistry.containsKey(name))

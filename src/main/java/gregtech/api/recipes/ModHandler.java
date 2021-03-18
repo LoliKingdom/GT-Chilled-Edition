@@ -48,8 +48,7 @@ public class ModHandler {
      * Returns if that Liquid is Water or Distilled Water
      */
     public static boolean isWater(FluidStack fluid) {
-        return new FluidStack(FluidRegistry.WATER, 1).isFluidEqual(fluid)
-            || new FluidStack(MetaFluids.DISTILLED_WATER, 1).isFluidEqual(fluid);
+        return fluid.getFluid().getName().contains("water");
     }
 
     /**
@@ -70,7 +69,7 @@ public class ModHandler {
      * Returns if that Liquid is Lava
      */
     public static boolean isLava(FluidStack fluid) {
-        return new FluidStack(FluidRegistry.LAVA, 0).isFluidEqual(fluid);
+        return fluid.getFluid() == FluidRegistry.LAVA;
     }
 
     /**
@@ -84,14 +83,14 @@ public class ModHandler {
      * Returns if that Liquid is Steam
      */
     public static boolean isSteam(FluidStack fluid) {
-        return getSteam(1).isFluidEqual(fluid);
+        return fluid.getFluid().getName().equals("steam");
     }
 
     /**
      * Returns a Liquid Stack with given amount of Steam.
      */
     public static FluidStack getSteam(int amount) {
-        return Objects.requireNonNull(Materials.Steam.getFluid(amount));
+        return Materials.Steam.getFluid(amount);
     }
 
     public static boolean isMaterialWood(Material material) {
