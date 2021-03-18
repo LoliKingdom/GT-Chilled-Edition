@@ -17,7 +17,7 @@ public class ItemSourceList implements IItemList, ITickable {
     protected final List<ItemSource> handlerInfoList = new ArrayList<>();
     protected final Map<ItemStackKey, NetworkItemInfo> itemInfoMap = new LinkedHashMap<>();
     private final Comparator<ItemSource> comparator = Comparator.comparing(ItemSource::getPriority);
-    private final Set<ItemStackKey> storedItemsView = Collections.unmodifiableSet(itemInfoMap.keySet());
+    private Set<ItemStackKey> storedItemsView;
     protected Runnable itemListChangeCallback = null;
     private boolean callbackWasCalled = false;
     private boolean disableCallback = false;
@@ -37,6 +37,9 @@ public class ItemSourceList implements IItemList, ITickable {
 
     @Override
     public Set<ItemStackKey> getStoredItems() {
+        if (storedItemsView == null) {
+            storedItemsView = Collections.unmodifiableSet(itemInfoMap.keySet());
+        }
         return storedItemsView;
     }
 
