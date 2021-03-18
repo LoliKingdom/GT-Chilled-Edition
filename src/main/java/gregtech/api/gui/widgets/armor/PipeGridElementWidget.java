@@ -1,20 +1,20 @@
 package gregtech.api.gui.widgets.armor;
 
-import gnu.trove.map.TIntObjectMap;
-import gnu.trove.map.hash.TIntObjectHashMap;
 import gregtech.api.gui.IRenderContext;
 import gregtech.api.gui.Widget;
 import gregtech.api.gui.resources.TextureArea;
 import gregtech.api.util.Position;
 import gregtech.api.util.PositionedRect;
 import gregtech.api.util.Size;
+import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
+import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
 
 import java.util.EnumMap;
 import java.util.Map;
 
 public abstract class PipeGridElementWidget extends GridElementWidget {
 
-    private static Map<ConnectionType, TIntObjectMap<TextureHolder>> pipeIconCacheMap = new EnumMap<>(ConnectionType.class);
+    private static final Map<ConnectionType, Int2ObjectMap<TextureHolder>> pipeIconCacheMap = new EnumMap<>(ConnectionType.class);
     protected final ConnectionType connectionType;
 
     public PipeGridElementWidget(Size elementSize, int slotSize, ConnectionType connectionType) {
@@ -59,14 +59,14 @@ public abstract class PipeGridElementWidget extends GridElementWidget {
         return resultConnections;
     }
 
-    protected TIntObjectMap<TextureHolder> getIconMap() {
+    protected Int2ObjectMap<TextureHolder> getIconMap() {
         return pipeIconCacheMap.computeIfAbsent(connectionType, k -> initializeIcons(createSpriteMap()));
     }
 
     protected abstract Map<TextureSprite, TextureArea> createSpriteMap();
 
-    private static TIntObjectMap<TextureHolder> initializeIcons(Map<TextureSprite, TextureArea> sprite2TextureMap) {
-        TIntObjectMap<TextureHolder> resultMap = new TIntObjectHashMap<>();
+    private static Int2ObjectMap<TextureHolder> initializeIcons(Map<TextureSprite, TextureArea> sprite2TextureMap) {
+        Int2ObjectMap<TextureHolder> resultMap = new Int2ObjectOpenHashMap<>();
         for (int i = 0; i < 4; i++) {
             resultMap.put(pack(i, i + 1), new TextureHolder(sprite2TextureMap.get(TextureSprite.EDGE), i));
             resultMap.put(pack(i, i + 1, i + 2), new TextureHolder(sprite2TextureMap.get(TextureSprite.T_JOINT), i));

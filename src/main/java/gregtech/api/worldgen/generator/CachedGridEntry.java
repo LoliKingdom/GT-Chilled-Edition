@@ -2,13 +2,6 @@ package gregtech.api.worldgen.generator;
 
 import com.google.common.cache.Cache;
 import com.google.common.cache.CacheBuilder;
-import gnu.trove.iterator.TLongIterator;
-import gnu.trove.list.TLongList;
-import gnu.trove.list.array.TLongArrayList;
-import gnu.trove.map.TLongObjectMap;
-import gnu.trove.map.hash.TLongObjectHashMap;
-import gnu.trove.set.TLongSet;
-import gnu.trove.set.hash.TLongHashSet;
 import gregtech.api.util.GTUtility;
 import gregtech.api.util.XSTR;
 import gregtech.api.worldgen.config.OreDepositDefinition;
@@ -19,6 +12,8 @@ import gregtech.api.worldgen.populator.VeinBufferPopulator;
 import gregtech.api.worldgen.populator.VeinChunkPopulator;
 import gregtech.api.worldgen.shape.IBlockGeneratorAccess;
 import gregtech.common.ConfigHolder;
+import it.unimi.dsi.fastutil.longs.*;
+import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.util.math.BlockPos;
@@ -57,10 +52,10 @@ public class CachedGridEntry implements GridEntryInfo, IBlockGeneratorAccess, IB
             .build();
     }
 
-    private final TLongObjectMap<ChunkDataEntry> dataByChunkPos = new TLongObjectHashMap<>();
+    private final Long2ObjectMap<ChunkDataEntry> dataByChunkPos = new Long2ObjectOpenHashMap<>();
     private static final Comparator<OreDepositDefinition> COMPARATOR = Comparator.comparing(OreDepositDefinition::getPriority).reversed();
     private static final BlockPos[] CHUNK_CORNER_SPOTS = new BlockPos[]{
-        new BlockPos(0, 0, 0),
+        BlockPos.ORIGIN,
         new BlockPos(15, 0, 0),
         new BlockPos(0, 0, 15),
         new BlockPos(15, 0, 15)
@@ -188,11 +183,11 @@ public class CachedGridEntry implements GridEntryInfo, IBlockGeneratorAccess, IB
         long chunkId = (long) chunkX << 32 | chunkZ & 0xFFFFFFFFL;
         ChunkDataEntry chunkDataEntry = dataByChunkPos.get(chunkId);
         if (chunkDataEntry != null) {
-            TLongSet longSet = chunkDataEntry.generatedBlocksSet.get(definition);
+            LongSet longSet = chunkDataEntry.generatedBlocksSet.get(definition);
             ArrayList<IBlockState> blockStates = new ArrayList<>();
-            TLongIterator iterator = longSet.iterator();
+            LongIterator iterator = longSet.iterator();
             while (iterator.hasNext())
-                blockStates.add(Block.getStateById((int) iterator.next()));
+                blockStates.add(Block.getStateById((int) iterator.nextLong()));
             return blockStates;
         }
         return Collections.emptyList();
@@ -306,8 +301,8 @@ public class CachedGridEntry implements GridEntryInfo, IBlockGeneratorAccess, IB
 
     public static class ChunkDataEntry {
 
-        private final Map<OreDepositDefinition, TLongList> oreBlocks = new HashMap<>();
-        private final Map<OreDepositDefinition, TLongSet> generatedBlocksSet = new HashMap<>();
+        private final Map<OreDepositDefinition, LongList> oreBlocks = new Object2ObjectOpenHashMap<>();
+        private final Map<OreDepositDefinition, LongSet> generatedBlocksSet = new Object2ObjectOpenHashMap<>();
         private final List<OreDepositDefinition> generatedOres = new ArrayList<>();
         private final int chunkX;
         private final int chunkZ;
@@ -320,9 +315,9 @@ public class CachedGridEntry implements GridEntryInfo, IBlockGeneratorAccess, IB
         public void setBlock(int x, int y, int z, OreDepositDefinition definition, int index) {
             int xzValue = (x & 0xFF) | ((z & 0xFF) << 8) | ((y & 0xFF) << 16);
             long blockIndex = (long) xzValue << 32 | index & 0xFFFFFFFFL;
-            TLongList longList = oreBlocks.get(definition);
+            LongList longList = oreBlocks.get(definition);
             if (longList == null) {
-                longList = new TLongArrayList();
+                longList = new LongArrayList();
                 oreBlocks.put(definition, longList);
             }
             longList.add(blockIndex);
@@ -332,11 +327,10 @@ public class CachedGridEntry implements GridEntryInfo, IBlockGeneratorAccess, IB
             MutableBlockPos blockPos = new MutableBlockPos();
             boolean generatedAnything = false;
             for (OreDepositDefinition definition : oreBlocks.keySet()) {
-                TLongList blockIndexList = oreBlocks.get(definition);
-                TLongSet generatedBlocks = new TLongHashSet();
+                LongList blockIndexList = oreBlocks.get(definition);
+                LongSet generatedBlocks = new LongOpenHashSet();
                 boolean generatedOreVein = false;
-                for (int i = 0; i < blockIndexList.size(); i++) {
-                    long blockIndex = blockIndexList.get(i);
+                for (long blockIndex : blockIndexList) {
                     int xyzValue = (int) (blockIndex >> 32);
                     int blockX = (byte) xyzValue;
                     int blockZ = (byte) (xyzValue >> 8);

@@ -1,7 +1,5 @@
 package gregtech.api.capability.impl;
 
-import gnu.trove.list.TIntList;
-import gnu.trove.list.array.TIntArrayList;
 import gregtech.api.GTValues;
 import gregtech.api.capability.GregtechCapabilities;
 import gregtech.api.capability.IElectricItem;
@@ -10,6 +8,8 @@ import gregtech.api.capability.impl.EnergyContainerHandler.IEnergyChangeListener
 import gregtech.api.metatileentity.MTETrait;
 import gregtech.api.metatileentity.MetaTileEntity;
 import gregtech.api.util.GTUtility;
+import it.unimi.dsi.fastutil.ints.IntArrayList;
+import it.unimi.dsi.fastutil.ints.IntList;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
@@ -21,7 +21,7 @@ import java.util.BitSet;
 
 public class EnergyContainerBatteryBuffer extends MTETrait implements IEnergyContainer {
 
-    private BitSet batterySlotsUsedThisTick = new BitSet();
+    private final BitSet batterySlotsUsedThisTick = new BitSet();
     private final int tier;
 
     public EnergyContainerBatteryBuffer(MetaTileEntity metaTileEntity, int tier) {
@@ -88,7 +88,7 @@ public class EnergyContainerBatteryBuffer extends MTETrait implements IEnergyCon
             IItemHandlerModifiable inventory = getInventory();
             long voltage = getOutputVoltage();
             long maxAmperage = 0L;
-            TIntList slotsList = new TIntArrayList();
+            IntList slotsList = new IntArrayList();
             for (int i = 0; i < inventory.getSlots(); i++) {
                 ItemStack batteryStack = inventory.getStackInSlot(i);
                 IElectricItem electricItem = getBatteryContainer(batteryStack);
@@ -101,7 +101,7 @@ public class EnergyContainerBatteryBuffer extends MTETrait implements IEnergyCon
             if (maxAmperage == 0) return;
             long amperageUsed = energyContainer.acceptEnergyFromNetwork(outFacing.getOpposite(), voltage, maxAmperage);
             if (amperageUsed == 0) return;
-            for (int i : slotsList.toArray()) {
+            for (int i : slotsList) {
                 ItemStack batteryStack = inventory.getStackInSlot(i);
                 IElectricItem electricItem = getBatteryContainer(batteryStack);
                 if (electricItem == null) continue;

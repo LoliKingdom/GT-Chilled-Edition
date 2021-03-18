@@ -1,8 +1,8 @@
 package gregtech.api.pipenet.tile;
 
-import gnu.trove.map.TIntIntMap;
 import gregtech.api.pipenet.block.BlockPipe;
 import gregtech.api.pipenet.block.IPipeType;
+import it.unimi.dsi.fastutil.ints.Int2IntMap;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
@@ -33,7 +33,7 @@ public interface IPipeTile<PipeType extends Enum<PipeType> & IPipeType<NodeDataT
 
     int getBlockedConnections();
 
-    TIntIntMap getBlockedConnectionsMap();
+    Int2IntMap getBlockedConnectionsMap();
 
     boolean isConnectionBlocked(AttachmentType type, EnumFacing side);
 

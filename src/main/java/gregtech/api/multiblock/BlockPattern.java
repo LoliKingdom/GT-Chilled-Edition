@@ -1,8 +1,8 @@
 package gregtech.api.multiblock;
 
-import gnu.trove.map.TIntObjectMap;
-import gnu.trove.map.hash.TIntObjectHashMap;
 import gregtech.api.util.IntRange;
+import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
+import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockPos.MutableBlockPos;
@@ -16,7 +16,7 @@ import java.util.function.Predicate;
 public class BlockPattern {
 
     private final Predicate<BlockWorldState>[][][] blockMatches; //[z][y][x]
-    private final TIntObjectMap<Predicate<PatternMatchContext>> layerMatchers = new TIntObjectHashMap<>();
+    private final Int2ObjectMap<Predicate<PatternMatchContext>> layerMatchers = new Int2ObjectOpenHashMap<>();
     private final Predicate<PatternMatchContext>[] validators;
     private final int fingerLength; //z size
     private final int thumbLength; //y size
@@ -35,7 +35,7 @@ public class BlockPattern {
 
     public BlockPattern(Predicate<BlockWorldState>[][][] predicatesIn,
                         List<Pair<Predicate<BlockWorldState>, IntRange>> countMatches,
-                        TIntObjectMap<Predicate<PatternMatchContext>> layerMatchers,
+                        Int2ObjectMap<Predicate<PatternMatchContext>> layerMatchers,
                         List<Predicate<PatternMatchContext>> validators,
                         RelativeDirection[] structureDir,
                         int[][] aisleRepetitions) {

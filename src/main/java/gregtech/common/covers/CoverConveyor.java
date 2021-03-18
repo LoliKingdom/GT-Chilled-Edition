@@ -5,8 +5,6 @@ import codechicken.lib.render.CCRenderState;
 import codechicken.lib.render.pipeline.IVertexOperation;
 import codechicken.lib.vec.Cuboid6;
 import codechicken.lib.vec.Matrix4;
-import gnu.trove.list.TIntList;
-import gnu.trove.list.array.TIntArrayList;
 import gregtech.api.GTValues;
 import gregtech.api.capability.GregtechTileCapabilities;
 import gregtech.api.capability.IControllable;
@@ -21,6 +19,8 @@ import gregtech.api.metatileentity.MetaTileEntity;
 import gregtech.api.render.Textures;
 import gregtech.api.util.ItemStackKey;
 import gregtech.common.covers.filter.ItemFilterContainer;
+import it.unimi.dsi.fastutil.ints.IntArrayList;
+import it.unimi.dsi.fastutil.ints.IntList;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
@@ -282,10 +282,10 @@ public class CoverConveyor extends CoverBehavior implements CoverWithUI, ITickab
     protected static class TypeItemInfo {
         public final ItemStack itemStack;
         public final Object filterSlot;
-        public final TIntList slots;
+        public final IntList slots;
         public int totalCount;
 
-        public TypeItemInfo(ItemStack itemStack, Object filterSlot, TIntList slots, int totalCount) {
+        public TypeItemInfo(ItemStack itemStack, Object filterSlot, IntList slots, int totalCount) {
             this.itemStack = itemStack;
             this.filterSlot = filterSlot;
             this.slots = slots;
@@ -318,7 +318,7 @@ public class CoverConveyor extends CoverBehavior implements CoverWithUI, ITickab
             }
             ItemStackKey itemStackKey = new ItemStackKey(itemStack);
             if(!result.containsKey(itemStackKey)) {
-                TypeItemInfo itemInfo = new TypeItemInfo(itemStack.copy(), transferSlotIndex, new TIntArrayList(), 0);
+                TypeItemInfo itemInfo = new TypeItemInfo(itemStack.copy(), transferSlotIndex, new IntArrayList(), 0);
                 itemInfo.totalCount += itemStack.getCount();
                 itemInfo.slots.add(srcIndex);
                 result.put(itemStackKey, itemInfo);

@@ -1,7 +1,7 @@
 package gregtech.api.util;
 
-import gnu.trove.list.TIntList;
-import gnu.trove.list.array.TIntArrayList;
+import it.unimi.dsi.fastutil.ints.IntArrayList;
+import it.unimi.dsi.fastutil.ints.IntList;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.util.math.BlockPos;
@@ -36,15 +36,15 @@ public class ByteBufUtils {
         return resultList;
     }
 
-    public static void writeIntList(PacketBuffer buf, TIntList intList) {
+    public static void writeIntList(PacketBuffer buf, IntList intList) {
         buf.writeVarInt(intList.size());
-        for (int i = 0; i < intList.size(); i++) {
-            buf.writeVarInt(intList.get(i));
+        for (int integer : intList) {
+            buf.writeVarInt(integer);
         }
     }
 
-    public static TIntList readIntList(PacketBuffer buf) {
-        TIntArrayList intArrayList = new TIntArrayList();
+    public static IntList readIntList(PacketBuffer buf) {
+        IntList intArrayList = new IntArrayList();
         int amount = buf.readVarInt();
         for (int i = 0; i < amount; i++) {
             intArrayList.add(buf.readVarInt());

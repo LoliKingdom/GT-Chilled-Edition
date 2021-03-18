@@ -1,13 +1,13 @@
 package gregtech.integration.multipart;
 
 import codechicken.multipart.TMultiPart;
-import gnu.trove.map.TIntIntMap;
-import gnu.trove.map.hash.TIntIntHashMap;
 import gregtech.api.pipenet.block.BlockPipe;
 import gregtech.api.pipenet.block.IPipeType;
 import gregtech.api.pipenet.block.material.TileEntityMaterialPipeBase;
 import gregtech.api.pipenet.tile.AttachmentType;
 import gregtech.api.unification.material.type.Material;
+import it.unimi.dsi.fastutil.ints.Int2IntMap;
+import it.unimi.dsi.fastutil.ints.Int2IntOpenHashMap;
 import net.minecraft.block.Block;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
@@ -20,7 +20,7 @@ public abstract class PipeMultiPart<PipeType extends Enum<PipeType> & IPipeType<
     private int pipeType;
     private Material material;
     protected int insulationColor = 0;
-    private TIntIntMap blockedConnectionsMap = new TIntIntHashMap();
+    private final Int2IntMap blockedConnectionsMap = new Int2IntOpenHashMap();
 
     protected PipeMultiPart() {
     }
@@ -60,7 +60,7 @@ public abstract class PipeMultiPart<PipeType extends Enum<PipeType> & IPipeType<
         tag.setString("PipeMaterial", material.toString());
         tag.setInteger("InsulationColor", insulationColor);
         NBTTagCompound blockedConnectionsTag = new NBTTagCompound();
-        for(int attachmentType : blockedConnectionsMap.keys()) {
+        for(int attachmentType : blockedConnectionsMap.keySet()) {
             int blockedConnections = blockedConnectionsMap.get(attachmentType);
             blockedConnectionsTag.setInteger(Integer.toString(attachmentType), blockedConnections);
         }

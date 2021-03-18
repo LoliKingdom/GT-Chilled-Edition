@@ -1,19 +1,19 @@
 package gregtech.api.multiblock;
 
 import com.google.common.base.Joiner;
-import gnu.trove.map.TIntObjectMap;
-import gnu.trove.map.hash.TIntObjectHashMap;
 import gregtech.api.multiblock.BlockPattern.RelativeDirection;
 import gregtech.api.util.IntRange;
+import it.unimi.dsi.fastutil.chars.Char2ObjectMap;
+import it.unimi.dsi.fastutil.chars.Char2ObjectOpenHashMap;
+import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
+import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.tuple.Pair;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Map.Entry;
 import java.util.function.Predicate;
 
@@ -24,13 +24,13 @@ public class FactoryBlockPattern {
     private static final Joiner COMMA_JOIN = Joiner.on(",");
     private final List<String[]> depth = new ArrayList<>();
     private final List<int[]> aisleRepetitions = new ArrayList<>();
-    private final Map<Character, IntRange> countLimits = new HashMap<>();
-    private final Map<Character, Predicate<BlockWorldState>> symbolMap = new HashMap<>();
-    private final TIntObjectMap<Predicate<PatternMatchContext>> layerValidators = new TIntObjectHashMap<>();
+    private final Char2ObjectMap<IntRange> countLimits = new Char2ObjectOpenHashMap<>();
+    private final Char2ObjectMap<Predicate<BlockWorldState>> symbolMap = new Char2ObjectOpenHashMap<>();
+    private final Int2ObjectMap<Predicate<PatternMatchContext>> layerValidators = new Int2ObjectOpenHashMap<>();
     private final List<Predicate<PatternMatchContext>> contextValidators = new ArrayList<>();
     private int aisleHeight;
     private int rowWidth;
-    private RelativeDirection[] structureDir = new RelativeDirection[3];
+    private final RelativeDirection[] structureDir = new RelativeDirection[3];
 
     private FactoryBlockPattern(RelativeDirection charDir, RelativeDirection stringDir, RelativeDirection aisleDir) {
         structureDir[0] = charDir;
@@ -186,8 +186,8 @@ public class FactoryBlockPattern {
 
     private List<Pair<Predicate<BlockWorldState>, IntRange>> makeCountLimitsList() {
         List<Pair<Predicate<BlockWorldState>, IntRange>> array = new ArrayList<>(countLimits.size());
-        for (Entry<Character, IntRange> entry : this.countLimits.entrySet()) {
-            Predicate<BlockWorldState> predicate = this.symbolMap.get(entry.getKey());
+        for (Char2ObjectMap.Entry<IntRange> entry : this.countLimits.char2ObjectEntrySet()) {
+            Predicate<BlockWorldState> predicate = this.symbolMap.get(entry.getCharKey());
             array.add(Pair.of(predicate, entry.getValue()));
         }
         return array;
@@ -196,9 +196,9 @@ public class FactoryBlockPattern {
     private void checkMissingPredicates() {
         List<Character> list = new ArrayList<>();
 
-        for (Entry<Character, Predicate<BlockWorldState>> entry : this.symbolMap.entrySet()) {
+        for (Char2ObjectMap.Entry<Predicate<BlockWorldState>> entry : this.symbolMap.char2ObjectEntrySet()) {
             if (entry.getValue() == null) {
-                list.add(entry.getKey());
+                list.add(entry.getCharKey());
             }
         }
 

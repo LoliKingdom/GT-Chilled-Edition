@@ -1,13 +1,13 @@
 package gregtech.api.pipenet.tile;
 
-import gnu.trove.map.TIntIntMap;
-import gnu.trove.map.hash.TIntIntHashMap;
 import gregtech.api.capability.GregtechTileCapabilities;
 import gregtech.api.cover.CoverBehavior;
 import gregtech.api.metatileentity.SyncedTileEntityBase;
 import gregtech.api.pipenet.WorldPipeNet;
 import gregtech.api.pipenet.block.BlockPipe;
 import gregtech.api.pipenet.block.IPipeType;
+import it.unimi.dsi.fastutil.ints.Int2IntMap;
+import it.unimi.dsi.fastutil.ints.Int2IntOpenHashMap;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.nbt.NBTTagCompound;
@@ -25,7 +25,7 @@ import java.util.function.Consumer;
 
 public abstract class TileEntityPipeBase<PipeType extends Enum<PipeType> & IPipeType<NodeDataType>, NodeDataType> extends SyncedTileEntityBase implements IPipeTile<PipeType, NodeDataType> {
 
-    private TIntIntMap blockedConnectionsMap = new TIntIntHashMap();
+    private Int2IntMap blockedConnectionsMap = new Int2IntOpenHashMap();
     private int blockedConnections = 0;
 
     protected int insulationColor = DEFAULT_INSULATION_COLOR;
@@ -121,8 +121,8 @@ public abstract class TileEntityPipeBase<PipeType extends Enum<PipeType> & IPipe
     }
 
     @Override
-    public TIntIntMap getBlockedConnectionsMap() {
-        return new TIntIntHashMap(blockedConnectionsMap);
+    public Int2IntMap getBlockedConnectionsMap() {
+        return blockedConnectionsMap;
     }
 
     @Override
@@ -249,7 +249,7 @@ public abstract class TileEntityPipeBase<PipeType extends Enum<PipeType> & IPipe
         }
         compound.setInteger("PipeType", pipeType.ordinal());
         NBTTagCompound blockedConnectionsTag = new NBTTagCompound();
-        for(int attachmentType : blockedConnectionsMap.keys()) {
+        for(int attachmentType : blockedConnectionsMap.keySet()) {
             int blockedConnections = blockedConnectionsMap.get(attachmentType);
             blockedConnectionsTag.setInteger(Integer.toString(attachmentType), blockedConnections);
         }

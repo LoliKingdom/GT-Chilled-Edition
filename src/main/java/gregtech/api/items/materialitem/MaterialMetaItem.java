@@ -1,7 +1,6 @@
 package gregtech.api.items.materialitem;
 
 import com.google.common.base.Preconditions;
-import gnu.trove.map.hash.TShortObjectHashMap;
 import gregtech.api.GTValues;
 import gregtech.api.GregTechAPI;
 import gregtech.api.damagesources.DamageSources;
@@ -11,6 +10,10 @@ import gregtech.api.unification.material.MaterialIconSet;
 import gregtech.api.unification.material.type.DustMaterial;
 import gregtech.api.unification.material.type.Material;
 import gregtech.api.unification.ore.OrePrefix;
+import it.unimi.dsi.fastutil.shorts.Short2ObjectMap;
+import it.unimi.dsi.fastutil.shorts.Short2ObjectOpenHashMap;
+import it.unimi.dsi.fastutil.shorts.ShortArrayList;
+import it.unimi.dsi.fastutil.shorts.ShortList;
 import net.minecraft.client.renderer.block.model.ModelBakery;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.client.util.ITooltipFlag;
@@ -25,13 +28,12 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 import javax.annotation.Nullable;
-import java.util.ArrayList;
 import java.util.List;
 
 public class MaterialMetaItem extends StandardMetaItem {
 
-    protected OrePrefix[] orePrefixes;
-    private ArrayList<Short> generatedItems = new ArrayList<>();
+    protected final OrePrefix[] orePrefixes;
+    private final ShortList generatedItems = new ShortArrayList();
 
     public MaterialMetaItem(OrePrefix... orePrefixes) {
         super((short) (1000 * orePrefixes.length));
@@ -61,7 +63,7 @@ public class MaterialMetaItem extends StandardMetaItem {
     @SideOnly(Side.CLIENT)
     public void registerModels() {
         super.registerModels();
-        TShortObjectHashMap<ModelResourceLocation> alreadyRegistered = new TShortObjectHashMap<>();
+        Short2ObjectMap<ModelResourceLocation> alreadyRegistered = new Short2ObjectOpenHashMap<>();
         for (short metaItem : generatedItems) {
             OrePrefix prefix = this.orePrefixes[metaItem / 1000];
             MaterialIconSet materialIconSet = Material.MATERIAL_REGISTRY.getObjectById(metaItem % 1000).materialIconSet;

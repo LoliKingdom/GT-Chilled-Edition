@@ -1,23 +1,23 @@
 package gregtech.api.capability.impl;
 
-import gnu.trove.map.TIntObjectMap;
-import gnu.trove.map.hash.TIntObjectHashMap;
+import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
+import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
+import it.unimi.dsi.fastutil.objects.Reference2IntMap;
+import it.unimi.dsi.fastutil.objects.Reference2IntOpenHashMap;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.IItemHandlerModifiable;
 
 import javax.annotation.Nonnull;
-import java.util.IdentityHashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Efficiently delegates calls into multiple item handlers
  */
 public class ItemHandlerList implements IItemHandlerModifiable {
 
-    private TIntObjectMap<IItemHandler> handlerBySlotIndex = new TIntObjectHashMap<>();
-    private Map<IItemHandler, Integer> baseIndexOffset = new IdentityHashMap<>();
+    private final Int2ObjectMap<IItemHandler> handlerBySlotIndex = new Int2ObjectOpenHashMap<>();
+    private final Reference2IntMap<IItemHandler> baseIndexOffset = new Reference2IntOpenHashMap<>();
 
     public ItemHandlerList(List<? extends IItemHandler> itemHandlerList) {
         int currentSlotIndex = 0;
@@ -44,35 +44,34 @@ public class ItemHandlerList implements IItemHandlerModifiable {
         IItemHandler itemHandler = handlerBySlotIndex.get(slot);
         if (!(itemHandler instanceof IItemHandlerModifiable))
             throw new UnsupportedOperationException("Handler " + itemHandler + " does not support this method");
-        ((IItemHandlerModifiable) itemHandler).setStackInSlot(slot - baseIndexOffset.get(itemHandler), stack);
+        ((IItemHandlerModifiable) itemHandler).setStackInSlot(slot - baseIndexOffset.getInt(itemHandler), stack);
     }
 
     @Nonnull
     @Override
     public ItemStack getStackInSlot(int slot) {
         IItemHandler itemHandler = handlerBySlotIndex.get(slot);
-        int realSlot = slot - baseIndexOffset.get(itemHandler);
-        return itemHandler.getStackInSlot(slot - baseIndexOffset.get(itemHandler));
+        return itemHandler.getStackInSlot(slot - baseIndexOffset.getInt(itemHandler));
     }
 
     @Override
     public int getSlotLimit(int slot) {
         IItemHandler itemHandler = handlerBySlotIndex.get(slot);
-        return itemHandler.getSlotLimit(slot - baseIndexOffset.get(itemHandler));
+        return itemHandler.getSlotLimit(slot - baseIndexOffset.getInt(itemHandler));
     }
 
     @Nonnull
     @Override
     public ItemStack insertItem(int slot, @Nonnull ItemStack stack, boolean simulate) {
         IItemHandler itemHandler = handlerBySlotIndex.get(slot);
-        return itemHandler.insertItem(slot - baseIndexOffset.get(itemHandler), stack, simulate);
+        return itemHandler.insertItem(slot - baseIndexOffset.getInt(itemHandler), stack, simulate);
     }
 
     @Nonnull
     @Override
     public ItemStack extractItem(int slot, int amount, boolean simulate) {
         IItemHandler itemHandler = handlerBySlotIndex.get(slot);
-        return itemHandler.extractItem(slot - baseIndexOffset.get(itemHandler), amount, simulate);
+        return itemHandler.extractItem(slot - baseIndexOffset.getInt(itemHandler), amount, simulate);
     }
 
 }

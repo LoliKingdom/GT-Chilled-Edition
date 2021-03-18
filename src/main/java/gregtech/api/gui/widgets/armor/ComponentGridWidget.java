@@ -1,16 +1,16 @@
 package gregtech.api.gui.widgets.armor;
 
 import com.google.common.base.Preconditions;
-import gnu.trove.iterator.TIntObjectIterator;
-import gnu.trove.map.TIntObjectMap;
-import gnu.trove.map.TObjectIntMap;
-import gnu.trove.map.hash.TIntObjectHashMap;
-import gnu.trove.map.hash.TObjectIntHashMap;
 import gregtech.api.gui.IRenderContext;
 import gregtech.api.gui.Widget;
 import gregtech.api.gui.widgets.AbstractWidgetGroup;
 import gregtech.api.util.Position;
 import gregtech.api.util.Size;
+import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
+import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
+import it.unimi.dsi.fastutil.objects.Object2IntMap;
+import it.unimi.dsi.fastutil.objects.Object2IntOpenHashMap;
+import it.unimi.dsi.fastutil.objects.ObjectIterator;
 
 public class ComponentGridWidget extends AbstractWidgetGroup {
 
@@ -19,8 +19,8 @@ public class ComponentGridWidget extends AbstractWidgetGroup {
     private final int slotSize;
     private final int offset;
     private int gridColor = 0xFFFFFFFF;
-    private TIntObjectMap<Widget> widgetBySlotIndex = new TIntObjectHashMap<>();
-    private TObjectIntMap<Widget> originByWidget = new TObjectIntHashMap<>();
+    private final Int2ObjectMap<Widget> widgetBySlotIndex = new Int2ObjectOpenHashMap<>();
+    private final Object2IntMap<Widget> originByWidget = new Object2IntOpenHashMap<>();
 
     public ComponentGridWidget(int x, int y, int slotSize, int offset, int gridSizeHorizontal, int gridSizeVertical) {
         super(new Position(x, y), computeGridSize(slotSize, offset, gridSizeHorizontal, gridSizeVertical));
@@ -98,10 +98,9 @@ public class ComponentGridWidget extends AbstractWidgetGroup {
 
     private void clearWidgetFromMap(Widget widget) {
         this.originByWidget.remove(widget);
-        TIntObjectIterator<Widget> it = this.widgetBySlotIndex.iterator();
+        ObjectIterator<Int2ObjectMap.Entry<Widget>> it = ((Int2ObjectOpenHashMap<Widget>) this.widgetBySlotIndex).int2ObjectEntrySet().fastIterator();
         while (it.hasNext()) {
-            it.advance();
-            if (it.value() == widget) {
+            if (it.next() == widget) {
                 it.remove();
             }
         }
