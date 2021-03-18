@@ -8,8 +8,6 @@ import gregtech.api.worldgen.config.OreConfigUtils;
 import gregtech.api.worldgen.config.OreDepositDefinition;
 import gregtech.api.worldgen.generator.GridEntryInfo;
 import gregtech.common.MetaFluids;
-import gregtech.common.blocks.MetaBlocks;
-import gregtech.common.blocks.surfacerock.TileEntitySurfaceRock;
 import net.minecraft.block.BlockLiquid;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.item.ItemStack;
@@ -63,12 +61,14 @@ public class SurfaceRockPopulator implements VeinChunkPopulator {
     }
 
     private void setStoneBlock(World world, BlockPos blockPos, Collection<Material> undergroundMaterials) {
+        /*
         boolean surfaceRockPlaced = world.setBlockState(blockPos, MetaBlocks.SURFACE_ROCK_NEW.getDefaultState());
         if (surfaceRockPlaced) {
             TileEntitySurfaceRock tileEntity = (TileEntitySurfaceRock) world.getTileEntity(blockPos);
             if (tileEntity != null)
                 tileEntity.setData(this.material, undergroundMaterials);
         }
+         */
     }
 
     @Override

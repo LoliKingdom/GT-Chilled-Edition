@@ -3,8 +3,6 @@ package gregtech.api.items.metaitem;
 import com.google.common.collect.HashMultimap;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Multimap;
-import gnu.trove.map.TShortObjectMap;
-import gnu.trove.map.hash.TShortObjectHashMap;
 import gregtech.api.GTValues;
 import gregtech.api.GregTechAPI;
 import gregtech.api.capability.GregtechCapabilities;
@@ -21,6 +19,9 @@ import gregtech.api.unification.OreDictUnifier;
 import gregtech.api.unification.material.type.Material;
 import gregtech.api.unification.ore.OrePrefix;
 import gregtech.api.unification.stack.ItemMaterialInfo;
+import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
+import it.unimi.dsi.fastutil.shorts.Short2ObjectMap;
+import it.unimi.dsi.fastutil.shorts.Short2ObjectOpenHashMap;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.block.model.ModelBakery;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
@@ -78,10 +79,10 @@ public abstract class MetaItem<T extends MetaItem<?>.MetaValueItem> extends Item
         return Collections.unmodifiableList(META_ITEMS);
     }
 
-    protected TShortObjectMap<T> metaItems = new TShortObjectHashMap<>();
-    private Map<String, T> names = new HashMap<>();
-    protected TShortObjectMap<ModelResourceLocation> metaItemsModels = new TShortObjectHashMap<>();
-    protected TShortObjectHashMap<ModelResourceLocation[]> specialItemsModels = new TShortObjectHashMap<>();
+    protected Short2ObjectMap<T> metaItems = new Short2ObjectOpenHashMap<>();
+    private final Map<String, T> names = new Object2ObjectOpenHashMap<>();
+    protected Short2ObjectMap<ModelResourceLocation> metaItemsModels = new Short2ObjectOpenHashMap<>();
+    protected Short2ObjectMap<ModelResourceLocation[]> specialItemsModels = new Short2ObjectOpenHashMap<>();
     private static final ModelResourceLocation MISSING_LOCATION = new ModelResourceLocation("builtin/missing", "inventory");
 
     protected final short metaItemOffset;
@@ -100,7 +101,7 @@ public abstract class MetaItem<T extends MetaItem<?>.MetaValueItem> extends Item
 
     @SideOnly(Side.CLIENT)
     public void registerModels() {
-        for (short itemMetaKey : metaItems.keys()) {
+        for (short itemMetaKey : metaItems.keySet()) {
             T metaValueItem = metaItems.get(itemMetaKey);
             int numberOfModels = metaValueItem.getModelAmount();
             if (numberOfModels > 1) {
@@ -215,7 +216,7 @@ public abstract class MetaItem<T extends MetaItem<?>.MetaValueItem> extends Item
     }
 
     public final Collection<T> getAllItems() {
-        return Collections.unmodifiableCollection(metaItems.valueCollection());
+        return Collections.unmodifiableCollection(metaItems.values());
     }
 
     public final T getItem(short metaValue) {
@@ -561,7 +562,7 @@ public abstract class MetaItem<T extends MetaItem<?>.MetaValueItem> extends Item
         if (tab != GregTechAPI.TAB_GREGTECH && tab != CreativeTabs.SEARCH) {
             return;
         }
-        for (T enabledItem : metaItems.valueCollection()) {
+        for (T enabledItem : metaItems.values()) {
             if (!enabledItem.isVisible())
                 continue;
             ItemStack itemStack = enabledItem.getStackForm();

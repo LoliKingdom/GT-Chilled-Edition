@@ -31,6 +31,7 @@ import gregtech.integration.jei.utils.CustomItemReturnRecipeWrapper;
 import gregtech.integration.jei.utils.MachineSubtypeHandler;
 import gregtech.integration.jei.utils.MetaItemSubtypeHandler;
 import gregtech.loaders.recipe.CustomItemReturnShapedOreRecipeRecipe;
+import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import mezz.jei.api.*;
 import mezz.jei.api.ingredients.IIngredientRegistry;
 import mezz.jei.api.ingredients.VanillaTypes;
@@ -44,7 +45,6 @@ import net.minecraft.util.ResourceLocation;
 import javax.annotation.Nonnull;
 import java.util.List;
 import java.util.Objects;
-import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.stream.Collectors;
 
 @JEIPlugin
@@ -134,7 +134,7 @@ public class GTJeiPlugin implements IModPlugin {
 
         registry.addIngredientInfo(Objects.requireNonNull(Materials.Air.getFluid(1000)), VanillaTypes.FLUID, I18n.format("gregtech.machine.air_collector.jei_description"));
 
-        List<OreByProduct> oreByproductList = new CopyOnWriteArrayList<>();
+        List<OreByProduct> oreByproductList = new ObjectArrayList<>();
         for (Material material : Material.MATERIAL_REGISTRY) {
             if (material instanceof DustMaterial && OreDictUnifier.get(OrePrefix.ore, material) != ItemStack.EMPTY) {
                 oreByproductList.add(new OreByProduct((DustMaterial) material));

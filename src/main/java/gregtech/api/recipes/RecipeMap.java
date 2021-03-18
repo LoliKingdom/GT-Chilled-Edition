@@ -25,6 +25,7 @@ import gregtech.api.util.GTUtility;
 import gregtech.api.util.ValidationResult;
 import it.unimi.dsi.fastutil.bytes.Byte2ObjectMap;
 import it.unimi.dsi.fastutil.bytes.Byte2ObjectOpenHashMap;
+import it.unimi.dsi.fastutil.objects.ObjectOpenHashSet;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.Fluid;
@@ -164,7 +165,7 @@ public class RecipeMap<R extends RecipeBuilder<R>> {
         recipeList.add(recipe);
 
         for (FluidStack fluid : recipe.getFluidInputs()) {
-            recipeFluidMap.computeIfAbsent(new FluidKey(fluid), k -> new HashSet<>(1)).add(recipe);
+            recipeFluidMap.computeIfAbsent(new FluidKey(fluid), k -> new ObjectOpenHashSet<>(1)).add(recipe);
         }
     }
 

@@ -33,6 +33,8 @@ import gregtech.common.render.CableRenderer;
 import gregtech.common.render.FluidPipeRenderer;
 import gregtech.common.render.tesr.TileEntityCrusherBladeRenderer;
 import gregtech.common.render.tesr.TileEntityRendererBase.TileEntityRenderBaseItem;
+import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
+import it.unimi.dsi.fastutil.objects.ObjectOpenHashSet;
 import net.minecraft.block.Block;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.state.IBlockState;
@@ -87,10 +89,10 @@ public class MetaBlocks {
 
     public static BlockCrusherBlade CRUSHER_BLADE;
 
-    public static Map<DustMaterial, BlockCompressed> COMPRESSED = new HashMap<>();
-    public static Map<SolidMaterial, BlockFrame> FRAMES = new HashMap<>();
-    public static Collection<BlockOre> ORES = new HashSet<>();
-    public static Collection<BlockFluidBase> FLUID_BLOCKS = new HashSet<>();
+    public static Map<DustMaterial, BlockCompressed> COMPRESSED = new Object2ObjectOpenHashMap<>();
+    public static Map<SolidMaterial, BlockFrame> FRAMES = new Object2ObjectOpenHashMap<>();
+    public static Collection<BlockOre> ORES = new ObjectOpenHashSet<>();
+    public static Collection<BlockFluidBase> FLUID_BLOCKS = new ObjectOpenHashSet<>();
 
     public static void init() {
         GregTechAPI.MACHINE = MACHINE = new BlockMachine();
