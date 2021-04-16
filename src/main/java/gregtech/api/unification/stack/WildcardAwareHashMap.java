@@ -1,8 +1,8 @@
 package gregtech.api.unification.stack;
 
 import gregtech.api.GTValues;
+import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 
-import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -11,7 +11,7 @@ import java.util.Map;
  *
  * @param <V> value type
  */
-public class WildcardAwareHashMap<V> extends HashMap<ItemAndMetadata, V> {
+public class WildcardAwareHashMap<V> extends Object2ObjectOpenHashMap<ItemAndMetadata, V> {
 
     public WildcardAwareHashMap(int initialCapacity, float loadFactor) {
         super(initialCapacity, loadFactor);
@@ -33,8 +33,7 @@ public class WildcardAwareHashMap<V> extends HashMap<ItemAndMetadata, V> {
         ItemAndMetadata itemStack = (ItemAndMetadata) key;
         V resultValue = super.get(key);
         if (resultValue == null && itemStack.itemDamage != GTValues.W) {
-            ItemAndMetadata wildcardStack = new ItemAndMetadata(itemStack.item, GTValues.W);
-            resultValue = super.get(wildcardStack);
+            resultValue = super.get(new ItemAndMetadata(itemStack.item, GTValues.W));
         }
         return resultValue;
     }
@@ -44,8 +43,7 @@ public class WildcardAwareHashMap<V> extends HashMap<ItemAndMetadata, V> {
         ItemAndMetadata itemStack = (ItemAndMetadata) key;
         boolean resultValue = super.containsKey(key);
         if (!resultValue && itemStack.itemDamage != GTValues.W) {
-            ItemAndMetadata wildcardStack = new ItemAndMetadata(itemStack.item, GTValues.W);
-            resultValue = super.containsKey(wildcardStack);
+            resultValue = super.containsKey(new ItemAndMetadata(itemStack.item, GTValues.W));
         }
         return resultValue;
     }
