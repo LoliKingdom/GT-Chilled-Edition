@@ -1,12 +1,12 @@
 package gregtech.api.util;
 
 import com.google.common.base.CaseFormat;
+import it.unimi.dsi.fastutil.doubles.Double2ObjectArrayMap;
+import it.unimi.dsi.fastutil.doubles.Double2ObjectMap;
 import net.minecraft.item.EnumDyeColor;
 
 import java.awt.*;
 import java.util.Collections;
-import java.util.HashMap;
-import java.util.Map;
 
 public class DyeUtil {
 
@@ -16,7 +16,7 @@ public class DyeUtil {
     public static EnumDyeColor determineDyeColor(int rgbColor) {
         Color c = new Color(rgbColor);
 
-        Map<Double, EnumDyeColor> distances = new HashMap<>();
+        Double2ObjectMap<EnumDyeColor> distances = new Double2ObjectArrayMap<>();
         for (EnumDyeColor dyeColor : EnumDyeColor.values()) {
             Color c2 = new Color(dyeColor.colorValue);
 

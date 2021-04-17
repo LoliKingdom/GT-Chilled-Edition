@@ -46,13 +46,13 @@ public class SurfaceBlockPopulator implements VeinChunkPopulator {
                 int randomX = chunkX * 16 + random.nextInt(16);
                 int randomZ = chunkZ * 16 + random.nextInt(16);
                 BlockPos topBlockPos = new BlockPos(randomX, 0, randomZ);
+                BlockPos placePos = world.getTopSolidOrLiquidBlock(topBlockPos);
                 topBlockPos = world.getTopSolidOrLiquidBlock(topBlockPos).down();
                 IBlockState blockState = world.getBlockState(topBlockPos);
-                if (blockState.getBlockFaceShape(world, topBlockPos, EnumFacing.UP) != BlockFaceShape.SOLID ||
-                    !blockState.isOpaqueCube() || !blockState.isFullBlock())
+                if (blockState.getBlockFaceShape(world, topBlockPos, EnumFacing.UP) != BlockFaceShape.SOLID || !blockState.isOpaqueCube() || !blockState.isFullBlock()) {
                     continue;
-                BlockPos surfaceRockPos = topBlockPos.up();
-                world.setBlockState(surfaceRockPos, this.blockState, 16);
+                }
+                world.setBlockState(placePos, this.blockState, 16);
             }
         }
     }

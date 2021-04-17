@@ -97,11 +97,13 @@ public class GregTechMod {
         //freeze material registry before processing items, blocks and fluids
         Material.freezeRegistry();
 
+        /*
         MetaBlocks.init();
         MetaItems.init();
         MetaFluids.init();
         MetaTileEntities.init();
         MetaEntities.init();
+         */
 
         proxy.onPreLoad();
     }

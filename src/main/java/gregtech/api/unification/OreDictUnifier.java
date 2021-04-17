@@ -10,6 +10,7 @@ import gregtech.api.unification.ore.OrePrefix;
 import gregtech.api.unification.stack.*;
 import gregtech.api.util.CustomModPriorityComparator;
 import gregtech.common.ConfigHolder;
+import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import it.unimi.dsi.fastutil.objects.ObjectArraySet;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.NonNullList;
@@ -22,7 +23,6 @@ import javax.annotation.Nullable;
 import java.util.AbstractMap.SimpleEntry;
 import java.util.*;
 import java.util.Map.Entry;
-import java.util.function.Function;
 import java.util.stream.Collectors;
 
 import static gregtech.api.GTValues.M;
@@ -33,12 +33,12 @@ public class OreDictUnifier {
     }
 
     //simple version of material registry for marker materials
-    private static final Map<String, MarkerMaterial> markerMaterialRegistry = new HashMap<>();
+    private static final Map<String, MarkerMaterial> markerMaterialRegistry = new Object2ObjectOpenHashMap<>();
     private static final Map<ItemAndMetadata, ItemMaterialInfo> materialUnificationInfo = new WildcardAwareHashMap<>();
     private static final Map<ItemAndMetadata, UnificationEntry> stackUnificationInfo = new WildcardAwareHashMap<>();
-    private static final Map<UnificationEntry, ArrayList<ItemAndMetadata>> stackUnificationItems = new HashMap<>();
+    private static final Map<UnificationEntry, List<ItemAndMetadata>> stackUnificationItems = new Object2ObjectOpenHashMap<>();
     private static final Map<ItemAndMetadata, Set<String>> stackOreDictName = new WildcardAwareHashMap<>();
-    private static final Map<String, List<ItemStack>> oreDictNameStacks = new HashMap<>();
+    private static final Map<String, List<ItemStack>> oreDictNameStacks = new Object2ObjectOpenHashMap<>();
 
     @Nullable
     private static Comparator<ItemAndMetadata> stackComparator;
@@ -212,7 +212,7 @@ public class OreDictUnifier {
         UnificationEntry unificationEntry = getUnificationEntry(itemStack);
         if (unificationEntry == null || !stackUnificationItems.containsKey(unificationEntry) || !unificationEntry.orePrefix.isUnificationEnabled)
             return itemStack;
-        ArrayList<ItemAndMetadata> keys = stackUnificationItems.get(unificationEntry);
+        List<ItemAndMetadata> keys = stackUnificationItems.get(unificationEntry);
         return keys.size() > 0 ? keys.get(0).toItemStack(itemStack.getCount()) : itemStack;
     }
 
@@ -220,7 +220,7 @@ public class OreDictUnifier {
         if (!stackUnificationItems.containsKey(unificationEntry)) {
             return ItemStack.EMPTY;
         }
-        ArrayList<ItemAndMetadata> keys = stackUnificationItems.get(unificationEntry);
+        List<ItemAndMetadata> keys = stackUnificationItems.get(unificationEntry);
         return keys.size() > 0 ? keys.get(0).toItemStack() : ItemStack.EMPTY;
     }
 
@@ -229,7 +229,7 @@ public class OreDictUnifier {
         if (!stackUnificationItems.containsKey(unificationEntry)) {
             return ItemStack.EMPTY;
         }
-        ArrayList<ItemAndMetadata> keys = stackUnificationItems.get(unificationEntry);
+        List<ItemAndMetadata> keys = stackUnificationItems.get(unificationEntry);
         return keys.size() > 0 ? keys.get(0).toItemStack() : ItemStack.EMPTY;
     }
 
@@ -238,7 +238,7 @@ public class OreDictUnifier {
         if (!stackUnificationItems.containsKey(unificationEntry)) {
             return ItemStack.EMPTY;
         }
-        ArrayList<ItemAndMetadata> keys = stackUnificationItems.get(unificationEntry);
+        List<ItemAndMetadata> keys = stackUnificationItems.get(unificationEntry);
         return keys.size() > 0 ? keys.get(0).toItemStack(stackSize) : ItemStack.EMPTY;
     }
 
@@ -256,7 +256,7 @@ public class OreDictUnifier {
     public static List<ItemStack> getAll(UnificationEntry unificationEntry) {
         if (!stackUnificationItems.containsKey(unificationEntry))
             return Collections.emptyList();
-        ArrayList<ItemAndMetadata> keys = stackUnificationItems.get(unificationEntry);
+        List<ItemAndMetadata> keys = stackUnificationItems.get(unificationEntry);
         return keys.stream().map(ItemAndMetadata::toItemStack).collect(Collectors.toList());
     }
 
@@ -286,10 +286,10 @@ public class OreDictUnifier {
         return ItemStack.EMPTY;
     }
 
-    synchronized private static <T> void addAndSort(List<T> list, T itemToAdd, Comparator<T> comparator) {
+    /*synchronized */private static <T> void addAndSort(List<T> list, T itemToAdd, Comparator<T> comparator) {
         list.add(itemToAdd);
-
-        if (list.size() > 1)
+        if (list.size() > 1) {
             list.sort(comparator);
+        }
     }
 }

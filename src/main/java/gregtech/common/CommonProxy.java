@@ -11,6 +11,7 @@ import gregtech.api.util.GTLog;
 import gregtech.common.blocks.*;
 import gregtech.common.items.MetaItems;
 import gregtech.common.items.potions.PotionFluids;
+import gregtech.common.metatileentities.MetaTileEntities;
 import gregtech.common.pipelike.cable.ItemBlockCable;
 import gregtech.common.pipelike.fluidpipe.ItemBlockFluidPipe;
 import gregtech.loaders.MaterialInfoLoader;
@@ -46,6 +47,12 @@ public class CommonProxy {
 
     @SubscribeEvent
     public static void registerBlocks(RegistryEvent.Register<Block> event) {
+
+        MetaBlocks.init();
+        MetaFluids.init();
+        MetaTileEntities.init();
+        MetaEntities.init();
+
         GTLog.logger.info("Registering Blocks...");
         IForgeRegistry<Block> registry = event.getRegistry();
 
@@ -81,6 +88,9 @@ public class CommonProxy {
 
     @SubscribeEvent
     public static void registerItems(RegistryEvent.Register<Item> event) {
+
+        MetaItems.init();
+
         GTLog.logger.info("Registering Items...");
         IForgeRegistry<Item> registry = event.getRegistry();
 

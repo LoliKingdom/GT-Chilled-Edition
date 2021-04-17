@@ -112,6 +112,8 @@ repositories {
 
 dependencies {
 
+    "implementation"(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar"))))
+
     "deobfCompile"("curse.maven:forestry-59751:2918418") {
         isTransitive = false
     }
@@ -122,6 +124,7 @@ dependencies {
     "deobfCompile"("mezz.jei:jei_$mcVersion:$jeiVersion")
     "deobfCompile"("mcjty.theoneprobe:TheOneProbe-$shortVersion:$shortVersion-$topVersion")
     "deobfCompile"("team.chisel.ctm:CTM:MC$mcVersion-$ctmVersion")
+    "deobfCompile"("curse.maven:biomes-o-plenty-220318:2842510")
 }
 
 configure<JavaPluginConvention> {

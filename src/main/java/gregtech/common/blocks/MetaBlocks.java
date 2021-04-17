@@ -33,6 +33,7 @@ import gregtech.common.render.CableRenderer;
 import gregtech.common.render.FluidPipeRenderer;
 import gregtech.common.render.tesr.TileEntityCrusherBladeRenderer;
 import gregtech.common.render.tesr.TileEntityRendererBase.TileEntityRenderBaseItem;
+import it.unimi.dsi.fastutil.objects.Object2ObjectArrayMap;
 import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import it.unimi.dsi.fastutil.objects.ObjectOpenHashSet;
 import net.minecraft.block.Block;
@@ -132,8 +133,7 @@ public class MetaBlocks {
 
         StoneType.init();
 
-        createGeneratedBlock(material -> material instanceof DustMaterial &&
-            !OrePrefix.block.isIgnored(material), MetaBlocks::createCompressedBlock);
+        createGeneratedBlock(material -> material instanceof DustMaterial && !OrePrefix.block.isIgnored(material), MetaBlocks::createCompressedBlock);
 
         for (Material material : Material.MATERIAL_REGISTRY) {
             if (material instanceof DustMaterial &&
@@ -215,7 +215,7 @@ public class MetaBlocks {
         BlockOre block = new BlockOre(material, stoneTypes);
         block.setRegistryName("ore_" + material + "_" + index);
         for (StoneType stoneType : stoneTypes) {
-            GregTechAPI.oreBlockTable.computeIfAbsent(material, m -> new HashMap<>()).put(stoneType, block);
+            GregTechAPI.oreBlockTable.computeIfAbsent(material, m -> new Object2ObjectArrayMap<>()).put(stoneType, block);
         }
         ORES.add(block);
     }

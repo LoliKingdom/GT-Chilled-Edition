@@ -28,9 +28,7 @@ public class StoneType implements Comparable<StoneType> {
     public final DustMaterial stoneMaterial;
     public final Supplier<IBlockState> stone;
     public final SoundType soundType;
-    //we are using guava predicate because isReplaceableOreGen uses it
-    @SuppressWarnings("Guava")
-    private final com.google.common.base.Predicate<IBlockState> predicate;
+    private final Predicate<IBlockState> predicate;
     public final boolean unbreakable;
     public final boolean affectedByGravity;
 
@@ -47,7 +45,7 @@ public class StoneType implements Comparable<StoneType> {
         this.unbreakable = (flags & UNBREAKABLE) > 0;
         this.affectedByGravity = (flags & AFFECTED_BY_GRAVITY) > 0;
         this.stone = stone;
-        this.predicate = predicate::test;
+        this.predicate = predicate;
         STONE_TYPE_REGISTRY.register(id, name, this);
     }
 
@@ -61,14 +59,13 @@ public class StoneType implements Comparable<StoneType> {
     }
 
     public static void init() {
-        //noinspection ResultOfMethodCallIgnored
-        StoneTypes.STONE.name.getBytes();
+        StoneTypes.init();
     }
 
     public static StoneType computeStoneType(IBlockState blockState, IBlockAccess world, BlockPos blockPos) {
         //TODO ADD CONFIG HOOK HERE FOR MATCHING BLOCKS WITH STONE TYPES
         for (StoneType stoneType : STONE_TYPE_REGISTRY) {
-            if (blockState.getBlock().isReplaceableOreGen(blockState, world, blockPos, stoneType.predicate))
+            if (blockState.getBlock().isReplaceableOreGen(blockState, world, blockPos, stoneType.predicate::test))
                 return stoneType;
         }
         return null;
