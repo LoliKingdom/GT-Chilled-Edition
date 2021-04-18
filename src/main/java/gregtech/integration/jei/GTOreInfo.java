@@ -84,7 +84,7 @@ public class GTOreInfo implements IRecipeWrapper {
         this.biomeFunction = definition.getBiomeWeightModifier();
 
         //Gather the dimension IDs that the vein can spawn in
-         dimensionIDs = dimMap.values().stream()
+        dimensionIDs = dimMap.values().stream()
             .flatMap(Collection::stream)
             .mapToInt(Integer::intValue)
             .filter(num -> definition.getDimensionFilter().test(DimensionManager.createProviderFor(num)))
