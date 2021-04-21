@@ -1,6 +1,5 @@
 package gregtech.common.blocks;
 
-import gregtech.api.unification.material.type.Material;
 import gregtech.api.unification.ore.OrePrefix;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.item.ItemBlock;
@@ -10,11 +9,8 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class FrameItemBlock extends ItemBlock {
 
-    private BlockFrame frameBlock;
-
     public FrameItemBlock(BlockFrame block) {
         super(block);
-        this.frameBlock = block;
         setHasSubtypes(true);
     }
 
@@ -25,14 +21,13 @@ public class FrameItemBlock extends ItemBlock {
 
     @SuppressWarnings("deprecation")
     public IBlockState getBlockState(ItemStack stack) {
-        return frameBlock.getStateFromMeta(getMetadata(stack.getItemDamage()));
+        return block.getStateFromMeta(getMetadata(stack.getItemDamage()));
     }
 
     @Override
     @SideOnly(Side.CLIENT)
     public String getItemStackDisplayName(ItemStack stack) {
-        Material material = frameBlock.frameMaterial;
-        return OrePrefix.frameGt.getLocalNameForItem(material);
+        return OrePrefix.frameGt.getLocalNameForItem(((BlockFrame) block).frameMaterial);
     }
 
 }

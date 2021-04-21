@@ -7,11 +7,8 @@ import net.minecraft.util.IStringSerializable;
 
 public class VariantItemBlock<R extends Enum<R> & IStringSerializable, T extends VariantBlock<R>> extends ItemBlock {
 
-    private final T genericBlock;
-
     public VariantItemBlock(T block) {
         super(block);
-        this.genericBlock = block;
         setHasSubtypes(true);
     }
 
@@ -27,7 +24,7 @@ public class VariantItemBlock<R extends Enum<R> & IStringSerializable, T extends
 
     @Override
     public String getTranslationKey(ItemStack stack) {
-        return super.getTranslationKey(stack) + '.' + genericBlock.getState(getBlockState(stack)).getName();
+        return super.getTranslationKey(stack) + '.' + ((T) block).getState(getBlockState(stack)).getName();
     }
 
 }
