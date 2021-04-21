@@ -15,14 +15,11 @@ public class JEIHooks {
 
     /**
      * This method is NOT intended to be called by GTCE.
-     * Do NOT use this method for any reason.
      */
-    public static void addFluidTooltip(List<String> tooltip, Object ingredient) {
-        if (ingredient instanceof FluidStack) {
-            String formula = FluidTooltipUtil.getFluidTooltip(((FluidStack) ingredient).getFluid());
-            if (formula != null && !formula.isEmpty()) {
-                tooltip.add(1, ChatFormatting.GRAY + formula);
-            }
+    public static void addFluidTooltip(List<String> tooltip, FluidStack ingredient) {
+        String formula = FluidTooltipUtil.getFluidTooltip(ingredient.getFluid());
+        if (formula != null && !formula.isEmpty()) {
+            tooltip.add(ChatFormatting.GRAY + formula);
         }
     }
 }

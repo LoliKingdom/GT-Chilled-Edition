@@ -1,12 +1,11 @@
 package gregtech.api.util;
 
 import gregtech.api.unification.material.Materials;
-import gregtech.api.unification.stack.MaterialStack;
+import it.unimi.dsi.fastutil.objects.Reference2ObjectOpenHashMap;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 
-import java.util.HashMap;
 import java.util.Map;
 
 public class FluidTooltipUtil {
@@ -14,7 +13,11 @@ public class FluidTooltipUtil {
     /**
      * Registry Mapping of <Fluid, Tooltip>
      */
-    private static final Map<Fluid, String> tooltips = new HashMap<>();
+    private static final Map<Fluid, String> tooltips = new Reference2ObjectOpenHashMap<>();
+
+    static {
+        tooltips.put(FluidRegistry.WATER, Materials.Water.chemicalFormula);
+    }
 
     /**
      * Used to register a tooltip to a Fluid. A Fluid can only have one tooltip, on one line.
@@ -40,9 +43,9 @@ public class FluidTooltipUtil {
      * @return      The tooltip.
      */
     public static String getFluidTooltip(Fluid fluid) {
-        if (fluid == null)
+        if (fluid == null) {
             return null;
-
+        }
         return tooltips.get(fluid);
     }
 
@@ -53,9 +56,9 @@ public class FluidTooltipUtil {
      * @return      The tooltip.
      */
     public static String getFluidTooltip(FluidStack stack) {
-        if (stack == null)
+        if (stack == null) {
             return null;
-
+        }
         return getFluidTooltip(stack.getFluid());
     }
 
@@ -66,9 +69,9 @@ public class FluidTooltipUtil {
      * @return          The tooltip.
      */
     public static String getFluidTooltip(String fluidName) {
-        if (fluidName == null || fluidName.isEmpty())
+        if (fluidName == null || fluidName.isEmpty()) {
             return null;
-
+        }
         return getFluidTooltip(FluidRegistry.getFluid(fluidName));
     }
 
@@ -78,7 +81,6 @@ public class FluidTooltipUtil {
      * @return "H₂O"
      */
     public static String getWaterTooltip() {
-        // Done like this to not return parenthesis around the tooltip
-        return (new MaterialStack(Materials.Hydrogen, 2)).toString() + "O";
+        return tooltips.get(FluidRegistry.WATER);
     }
 }
