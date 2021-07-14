@@ -77,9 +77,6 @@ repositories {
         name = "ic2, forestry"
         setUrl("http://maven.ic2.player.to/")
     }
-    maven {
-        setUrl("https://www.cursemaven.com")
-    }
     maven { //JEI
         name = "Progwml6 maven"
         setUrl("http://dvs1.progwml6.com/files/maven/")
@@ -108,6 +105,10 @@ repositories {
         name = "CCL Maven New"
         setUrl("https://minecraft.curseforge.com/api/maven")
     }
+    maven {
+        name = "CurseMaven"
+        setUrl("https://www.cursemaven.com")
+    }
 }
 
 dependencies {
@@ -117,14 +118,13 @@ dependencies {
     "deobfCompile"("curse.maven:forestry-59751:2918418") {
         isTransitive = false
     }
+    "deobfCompile"("curse.maven:biomes-o-plenty-220318:2842510")
     "deobfCompile"("codechicken:ChickenASM:$shortVersion-$chickenasmVersion")
     "deobfCompile"("codechicken-lib-1-8:CodeChickenLib-$mcVersion:$cclVersion:universal")
-    "deobfCompile"("forge-multipart-cbe:ForgeMultipart-$mcVersion:$multipartVersion:universal")
     "deobfCompile"("CraftTweaker2:CraftTweaker2-MC$strippedVersion-Main:$crafttweakerVersion")
     "deobfCompile"("mezz.jei:jei_$mcVersion:$jeiVersion")
     "deobfCompile"("mcjty.theoneprobe:TheOneProbe-$shortVersion:$shortVersion-$topVersion")
     "deobfCompile"("team.chisel.ctm:CTM:MC$mcVersion-$ctmVersion")
-    "deobfCompile"("curse.maven:biomes-o-plenty-220318:2842510")
 }
 
 configure<JavaPluginConvention> {
