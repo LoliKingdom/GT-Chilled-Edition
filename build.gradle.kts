@@ -46,7 +46,6 @@ val strippedVersion = shortVersion.replace(".", "") + "0"
 val forestryVersion = config["forestry.version"] as String
 val chickenasmVersion = config["chickenasm.version"] as String
 val cclVersion = config["ccl.version"] as String
-val multipartVersion = config["multipart.version"] as String
 val crafttweakerVersion = config["crafttweaker.version"] as String
 val jeiVersion = config["jei.version"] as String
 val topVersion = config["top.version"] as String
