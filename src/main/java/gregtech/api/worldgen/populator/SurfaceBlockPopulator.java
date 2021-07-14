@@ -4,6 +4,7 @@ import com.google.gson.JsonObject;
 import gregtech.api.worldgen.config.OreDepositDefinition;
 import gregtech.api.worldgen.config.PredicateConfigUtils;
 import gregtech.api.worldgen.generator.GridEntryInfo;
+import net.minecraft.block.Block;
 import net.minecraft.block.state.BlockFaceShape;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.util.EnumFacing;
@@ -49,7 +50,10 @@ public class SurfaceBlockPopulator implements VeinChunkPopulator {
                 BlockPos placePos = world.getTopSolidOrLiquidBlock(topBlockPos);
                 topBlockPos = world.getTopSolidOrLiquidBlock(topBlockPos).down();
                 IBlockState blockState = world.getBlockState(topBlockPos);
-                if (blockState.getBlockFaceShape(world, topBlockPos, EnumFacing.UP) != BlockFaceShape.SOLID || !blockState.isOpaqueCube() || !blockState.isFullBlock()) {
+                Block blockAtPos = blockState.getBlock();
+                if (blockState.getBlockFaceShape(world, topBlockPos, EnumFacing.UP) != BlockFaceShape.SOLID ||
+                    !blockState.isOpaqueCube() || !blockState.isFullBlock() || !(blockAtPos.isReplaceable(world, topBlockPos) &&
+                    blockState.getMaterial().isLiquid()))
                     continue;
                 }
                 world.setBlockState(placePos, this.blockState, 16);

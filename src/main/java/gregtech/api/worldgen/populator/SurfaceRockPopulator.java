@@ -8,7 +8,9 @@ import gregtech.api.worldgen.config.OreConfigUtils;
 import gregtech.api.worldgen.config.OreDepositDefinition;
 import gregtech.api.worldgen.generator.GridEntryInfo;
 import gregtech.common.MetaFluids;
-import it.unimi.dsi.fastutil.objects.ObjectArraySet;
+import gregtech.common.blocks.MetaBlocks;
+import gregtech.common.blocks.surfacerock.TileEntitySurfaceRock;
+import net.minecraft.block.Block;
 import net.minecraft.block.BlockLiquid;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.item.ItemStack;
@@ -83,7 +85,9 @@ public class SurfaceRockPopulator implements VeinChunkPopulator {
                 int randomX = chunkX * 16 + 8 + random.nextInt(16);
                 int randomZ = chunkZ * 16 + 8 + random.nextInt(16);
                 BlockPos topBlockPos = world.getTopSolidOrLiquidBlock(new BlockPos(randomX, 0, randomZ));
-                if (world.isAirBlock(topBlockPos) && world.isSideSolid(topBlockPos.down(), EnumFacing.UP)) {
+                Block blockAtPos = world.getBlockState(topBlockPos).getBlock();
+                if ((world.isAirBlock(topBlockPos) || (blockAtPos.isReplaceable(world, topBlockPos) && !world.getBlockState(topBlockPos).getMaterial().isLiquid()))
+                        && world.isSideSolid(topBlockPos.down(), EnumFacing.UP)) {
                     setStoneBlock(world, topBlockPos, undergroundMaterials);
                 }
             }
