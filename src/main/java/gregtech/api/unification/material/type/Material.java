@@ -9,6 +9,7 @@ import gregtech.api.unification.material.MaterialIconSet;
 import gregtech.api.unification.stack.MaterialStack;
 import gregtech.api.util.GTControlledRegistry;
 import gregtech.api.util.GTLog;
+import it.unimi.dsi.fastutil.objects.Object2ObjectRBTreeMap;
 import net.minecraft.client.resources.I18n;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -21,7 +22,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
-import java.util.TreeMap;
 
 import static gregtech.api.util.GTUtility.createFlag;
 
@@ -48,7 +48,7 @@ public abstract class Material implements Comparable<Material> {
 
     public static final class MatFlags {
 
-        private static final Map<String, Entry<Long, Class<? extends Material>>> materialFlagRegistry = new TreeMap<>(String.CASE_INSENSITIVE_ORDER);
+        private static final Map<String, Entry<Long, Class<? extends Material>>> materialFlagRegistry = new Object2ObjectRBTreeMap<>(String.CASE_INSENSITIVE_ORDER);
 
         public static void registerMaterialFlag(String name, long value, Class<? extends Material> classFilter) {
             if (materialFlagRegistry.containsKey(name))
